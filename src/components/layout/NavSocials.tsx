@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
-import GitLogo from '../../assets/github-mark.svg'
-import LinkedLogo from '../../assets/InBug-Black.png'
+import GitLogo from '../../assets/github-mark-white.svg'
+import LinkedLogo from '../../assets/InBug-White.png'
 import { JSX } from 'react';
 
 export default function NavSocials(): JSX.Element {
@@ -8,7 +8,7 @@ export default function NavSocials(): JSX.Element {
         <motion.div className='mr-40 flex lg:mr-20 lg:flex'>
             <a href ='https://github.com/jwbmarten' target='_blank'>
                 <motion.img 
-                    className='px-4 w-28 h-14'
+                    className='px-4 h-14 w-auto'
                     src = {GitLogo}
                     alt = 'GitHub'
                     shadow-xl
@@ -17,7 +17,7 @@ export default function NavSocials(): JSX.Element {
             </a>
             <a href ='https://www.linkedin.com/in/jake-marten/' target='_blank'>
                 <motion.img 
-                    className='px-4 w-28 h-14'
+                    className='px-4 h-14 w-auto'
                     src = {LinkedLogo}
                     alt = 'LinkedIn'
                     shadow-xl
