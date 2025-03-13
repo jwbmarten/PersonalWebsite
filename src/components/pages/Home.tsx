@@ -67,7 +67,7 @@ export default function Home(): JSX.Element {
 
       {/* Other sections: headers are now images, centered and without background color */}
       <SectionWithProgress
-        header={<img src={aboutHeaderImg} alt="About Me" className="h-16 mx-auto" />}
+        header={<h1 className="text-8xl font-spartan text-[#fdd262] font-[700]">About Me</h1>}
       >
         <AboutSection/>
       </SectionWithProgress>

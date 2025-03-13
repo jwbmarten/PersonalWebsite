@@ -13,10 +13,10 @@ function NavText({ href, text, isMain}: NavTextProps): JSX.Element {
     return (
             <NavLink 
             to={href}
-            className={`hover:underline transition-colors duration-300 ${
+            className={`hover:underline transition-colors duration-300 font-arvo ${
              
             isMain ?
-                "text-3xl font-bold text-emerald-400"
+                "text-3xl text-[#fdd262]"
                 : "text-2xl text-white"
             }`}
             >
@@ -29,7 +29,7 @@ function NavText({ href, text, isMain}: NavTextProps): JSX.Element {
 export default function NavBar(): JSX.Element {
     return (
             <motion.nav 
-            className="sticky top-0 z-50 w-2/5 mx-auto rounded-xl shadow-xl mt-10 bg-zinc-800"
+            className="sticky top-0 z-50 w-1/2 mx-auto rounded-xl shadow-xl mt-10 bg-zinc-800"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 0.80, scale: 1 }}
             transition={{
@@ -42,10 +42,16 @@ export default function NavBar(): JSX.Element {
                 <ul className='ml-20  hidden w-1/4 items-center justify-between font-paragraph text-2xl text-skin-base lg:flex'>
 
                     <li className='px-4'>
-                        <NavText href='/' text='JakesWorld' isMain={true} />
+                        <NavText href='/' text='Home' isMain={true} />
                     </li>
                     <li className='px-4'>
-                        <NavText href='/games' text='Games' />
+                        <NavText href='/games' text='About' />
+                    </li>
+                    <li className='px-4'>
+                        <NavText href='/games' text='Projects' />
+                    </li>
+                    <li className='px-4'>
+                        <NavText href='/games' text='Contact' />
                     </li>
                 </ul>
                 <Socials/>
