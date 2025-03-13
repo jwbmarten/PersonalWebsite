@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import type { JSX, ReactNode } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import HeroSection from "../layout/HeroSection";
+import AboutSection from "../layout/AboutSection";
 import NavBar from "../layout/NavBar";
 
 // Import your header images:
@@ -68,9 +69,7 @@ export default function Home(): JSX.Element {
       <SectionWithProgress
         header={<img src={aboutHeaderImg} alt="About Me" className="h-16 mx-auto" />}
       >
-        <p className="text-[rgb(87,111,114)]">
-          I’m a current student at the University of Pennsylvania pursuing a Masters in Computer Science.
-        </p>
+        <AboutSection/>
       </SectionWithProgress>
 
       <SectionWithProgress
