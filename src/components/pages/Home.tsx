@@ -1,8 +1,8 @@
 import React, { useRef } from "react";
 import type { JSX, ReactNode } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
-import HeroSection from "../layout/HeroSection";
-import AboutSection from "../layout/AboutSection";
+import HeroSection from "../HomeSections/HeroSection";
+import AboutSection from "../HomeSections/AboutSection";
 import NavBar from "../layout/NavBar";
 
 // Import your header images:
@@ -28,12 +28,12 @@ function SectionWithProgress({ header, children }: SectionWithProgressProps): JS
   return (
     <section ref={ref} className="relative min-h-screen py-10">
       {/* Sticky header for this section */}
-      <div className="sticky top-0 flex items-center justify-center p-4 z-10">
+      <div className="sticky top-0 flex items-center justify-center  z-10">
         {/* Header is rendered here; using an image that's centered */}
-        <div>{header}</div>
+        <div className='w-full border-b-4 border-[#D3DDDC]'>{header}</div>
       </div>
       {/* Section content */}
-      <div className="px-8">{children}</div>
+      <div className="lg:px-8">{children}</div>
     </section>
   );
 }
@@ -67,7 +67,7 @@ export default function Home(): JSX.Element {
 
       {/* Other sections: headers are now images, centered and without background color */}
       <SectionWithProgress
-        header={<h1 className="text-8xl font-spartan text-[#fdd262] font-[700]">About Me</h1>}
+        header={<h1 className="text-4xl lg:text-8xl font-spartan text-[#fdd262] font-[700] bg-[#798E87]">About Me</h1>}
       >
         <AboutSection/>
       </SectionWithProgress>

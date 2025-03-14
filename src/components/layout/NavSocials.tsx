@@ -5,10 +5,13 @@ import { JSX } from 'react';
 
 export default function NavSocials(): JSX.Element {
     return (
-        <motion.div className='mr-40 flex lg:mr-20 lg:flex'>
+        <div className='flex flex-row justify-between lg:justify-end '>
+
+        
+        <motion.div className='flex  lg:justify-end'>
             <a href ='https://github.com/jwbmarten' target='_blank'>
                 <motion.img 
-                    className='px-4 h-14 w-auto'
+                    className='px-4 h-10 lg:h-14 w-auto'
                     src = {GitLogo}
                     alt = 'GitHub'
                     shadow-xl
@@ -17,7 +20,7 @@ export default function NavSocials(): JSX.Element {
             </a>
             <a href ='https://www.linkedin.com/in/jake-marten/' target='_blank'>
                 <motion.img 
-                    className='px-4 h-14 w-auto'
+                    className='px-4 h-10 lg:h-14 w-auto'
                     src = {LinkedLogo}
                     alt = 'LinkedIn'
                     shadow-xl
@@ -25,5 +28,6 @@ export default function NavSocials(): JSX.Element {
                     />
             </a>
         </motion.div>
+        </div>
     )
 }
