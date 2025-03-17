@@ -3,6 +3,7 @@ import type { JSX, ReactNode } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import HeroSection from "../HomeSections/HeroSection";
 import AboutSection from "../HomeSections/AboutSection";
+import ProjectsSection from "../HomeSections/ProjectsSection";
 import NavBar from "../layout/NavBar";
 
 // Import your header images:
@@ -73,11 +74,9 @@ export default function Home(): JSX.Element {
       </SectionWithProgress>
 
       <SectionWithProgress
-        header={<img src={workHeaderImg} alt="My Work" className="h-16 mx-auto" />}
+        header={<h1 className="text-4xl lg:text-8xl font-spartan text-[#fdd262] font-[700] bg-[#798E87]">Projects</h1>}
       >
-        <p className="text-[rgb(87,111,114)]">
-          Here is a showcase of my projects and experiences in the field.
-        </p>
+        <ProjectsSection/>
       </SectionWithProgress>
 
       <SectionWithProgress
