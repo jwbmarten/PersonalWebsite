@@ -11,9 +11,9 @@ import Timeline from "../../assets/timelineBlackText.png"
 export default function AboutSection(): JSX.Element {
   return (
 
-    <div className="flex flex-col items-center justify-between relative min-h-screen w-full py-10">
+    <div className="flex flex-col items-center relative min-h-screen py-10 mx-auto">
         {/* Row 1: Photo and Text*/}
-        <div className="flex flex-col-reverse md:flex-col-reverse lg:flex-row items-center justify-between w-full md:w-full lg:w-2/3 bg-[#899DA4] rounded-lg p-10 border-4 border-[#446455] shadow-xl">
+        <div className="flex flex-col-reverse md:flex-col-reverse lg:flex-row items-center justify-between w-full md:w-full lg:w-5/6 bg-[#899DA4] rounded-lg p-10 border-4 border-[#446455] shadow-xl">
           {/* Row 1: Text*/}
           <p className="w-full lg:w-7/8 font-arvo text-black lg:pr-8 lg:text-lg py-10">
             Hello, I’m Jake! I am a Master of Computer Science student at the University of Pennsylvania, with a passion for bridging the gap between technology and creativity.
@@ -35,10 +35,10 @@ export default function AboutSection(): JSX.Element {
         </div>
 
       {/* Row 2: timeline and languages */}
-      <div className="flex flex-col md:flex-col lg:flex-row justify-between w-full lg:w-2/3 py-10 ">
+      <div className="flex flex-col md:flex-col lg:flex-row items-center justify-between w-full lg:w-2/3 min-w-250 py-10 bg-[#899DA4] rounded-lg p-10 border-4 border-[#446455] shadow-xl mt-10 ">
 
         {/* Row 2: SKILLS*/}
-        <div className='w-full lg:w-1/2'>
+        <div className='w-full lg:w-1/2 '>
           <ProgrammingLogos />
         </div>
 

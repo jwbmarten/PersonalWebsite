@@ -55,7 +55,7 @@ export default function Home(): JSX.Element {
   const navOpacity = useTransform(heroScroll, [0, 0.75, 0.85], [1, 0.8, 0]);
 
   return (
-    <div>
+    <div className='w-full'>
       {/* NavBar is wrapped in a motion.div that is sticky with an offset */}
       <motion.div style={{ opacity: navOpacity }} className="sticky top-10 z-50">
         <NavBar />

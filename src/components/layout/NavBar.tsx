@@ -42,16 +42,16 @@ export default function NavBar(): JSX.Element {
                 <ul className="ml-20 hidden w-1/4 items-center justify-between font-paragraph text-2xl text-skin-base lg:flex">
 
 
-                    <li className='px-1 lg:px-4'>
+                    <li className='px-1 lg:px-4 mx-auto'>
                         <NavText href='/' text='Home' isMain={true} />
                     </li>
-                    <li className='px-1 lg:px-4'>
+                    <li className='px-1 lg:px-4 mx-auto'>
                         <NavText href='/games' text='About' />
                     </li>
-                    <li className='px-1 lg:px-4'>
+                    <li className='px-1 lg:px-4 mx-auto'>
                         <NavText href='/games' text='Projects' />
                     </li>
-                    <li className='px-1 lg:px-4'>
+                    <li className='px-1 lg:px-4 mx-auto'>
                         <NavText href='/games' text='Contact' />
                     </li>
                 </ul>
