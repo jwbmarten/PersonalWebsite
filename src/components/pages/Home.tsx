@@ -27,11 +27,13 @@ function SectionWithProgress({ header, children }: SectionWithProgressProps): JS
   });
 
   return (
-    <section ref={ref} className="relative min-h-screen py-10">
+    <section ref={ref} className="relative py-10 mx-auto max-w-[1400px]">
       {/* Sticky header for this section */}
-      <div className="sticky top-0 flex items-center justify-center  z-10">
-        {/* Header is rendered here; using an image that's centered */}
-        <div className='w-full border-b-4 border-[#D3DDDC]'>{header}</div>
+      <div className="sticky top-0 flex items-center justify-center z-10">
+        {/* Header is rendered here; center on mobile, keep start on large screens */}
+        <div className="w-full border-b-4 border-[#D3DDDC] flex justify-center lg:justify-start">
+          <div className="w-full px-4 text-center lg:text-left">{header}</div>
+        </div>
       </div>
       {/* Section content */}
       <div className="lg:px-8">{children}</div>
@@ -56,8 +58,8 @@ export default function Home(): JSX.Element {
 
   return (
     <div className='w-full'>
-      {/* NavBar is wrapped in a motion.div that is sticky with an offset */}
-      <motion.div style={{ opacity: navOpacity }} className="sticky top-10 z-50">
+      {/* NavBar is wrapped in a motion.div that is fixed to the top (removed from flow) */}
+      <motion.div style={{ opacity: navOpacity }} className="fixed top-4 left-0 right-0 z-50 flex justify-center">
         <NavBar />
       </motion.div>
 
@@ -68,13 +70,13 @@ export default function Home(): JSX.Element {
 
       {/* Other sections: headers are now images, centered and without background color */}
       <SectionWithProgress
-        header={<h1 className="text-4xl lg:text-8xl font-spartan text-[#fdd262] font-[700] bg-[#798E87]">About Me</h1>}
+        header={<h1 className="text-4xl lg:text-8xl font-spartan text-[#fdd262] font-[700] bg-black">About Me</h1>}
       >
         <AboutSection/>
       </SectionWithProgress>
 
       <SectionWithProgress
-        header={<h1 className="text-4xl lg:text-8xl font-spartan text-[#fdd262] font-[700] bg-[#798E87]">Projects</h1>}
+        header={<h1 className="text-4xl lg:text-8xl font-spartan text-[#fdd262] font-[700] bg-black">Projects</h1>}
       >
         <ProjectsSection/>
       </SectionWithProgress>

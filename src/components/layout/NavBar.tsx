@@ -29,7 +29,7 @@ function NavText({ href, text, isMain}: NavTextProps): JSX.Element {
 export default function NavBar(): JSX.Element {
     return (
             <motion.nav 
-            className="sticky top-0 z-50 w-2/5 lg:w-1/2 mx-auto rounded-xl shadow-xl mt-10 bg-zinc-800"
+            className="z-50 w-2/5 lg:w-1/2 mx-auto rounded-xl shadow-xl bg-zinc-800"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 0.80, scale: 1 }}
             transition={{

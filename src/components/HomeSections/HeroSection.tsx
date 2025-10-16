@@ -5,20 +5,21 @@ import ProgrammingLogos from "../layout/ProgrammingLogos";
 
 
 export default function HeroSection(): JSX.Element {
-    return (
-      <div className="flex flex-col justify-center relative h-screen -mt-25 lg:-mt-30 bg-[#446455]">
-        <div className=" flex flex-col items-center justify-center relative ">
-          <h1 className="text-7xl md:text-7xl lg:text-9xl font-spartan text-[#fdd262] font-[700] pt-25 pb-5">JAKE</h1>
-          <h1 className="text-7xl md:text-7xl lg:text-9xl font-spartan text-[#fdd262] font-[700] pt-5 pb-25">MARTEN</h1>
+  return (
+    <header className="w-full min-h-screen flex items-center justify-center">
+      <div className="mx-auto w-full max-w-[1400px] px-6 py-12 flex flex-col items-center justify-center">
+        <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-9xl font-spartan text-[#fdd262] font-[700] leading-tight text-center">JAKE</h1>
+        <h1 className="mt-2 text-5xl sm:text-6xl md:text-7xl lg:text-9xl font-spartan text-[#fdd262] font-[700] leading-tight text-center">MARTEN</h1>
+        <p className="text-white sm:text-center xs:text-center w-11/12 sm:w-3/4 md:w-2/3">Hi, welcome to my personal website! This site is self-hosted on a Raspberry Pi 4b, read more about it here! </p>
 
-          {/* Row 1: Lower Banner*/}
-          <div className='flex flex-row justify-evenly bg-[#D3DDDC] h-20 w-full items-center mb-10'>
-            <h1 className='text-sm lg:text-xl font-spartan text-black font-[500]'>REVISED EDITION No. 12</h1>
-            
-            <h1 className='text-sm lg:text-xl font-spartan text-black font-[500]'>RM-TS/254</h1>
+        {/* Lower banner */}
+        <div className="mt-8 flex flex-row justify-center bg-[#D3DDDC] h-14 sm:h-16 w-11/12 sm:w-3/4 md:w-2/3 items-center rounded">
+          <div className="flex w-full justify-between px-4 text-sm sm:text-base font-spartan text-black font-[500]">
+            <span>REVISED EDITION No. 12</span>
+            <span>RM-TS/254</span>
           </div>
         </div>
       </div>
-    );
-  }
-  
+    </header>
+  );
+}

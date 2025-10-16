@@ -1,16 +1,88 @@
 import React, { JSX } from "react";
 import ProjectCard from "../layout/ProjectCard";
 import PixelSolitaireImg from '../../assets/PixelSolitaire.png'
+import GarminAppImg from '../../assets/jwbBlock.png'
 
+type Project = {
+  id: string;
+  title: string;
+  description: string;
+  img: string;
+  tags?: string[];
+  year?: number | string;
+  links?: { label: string; href: string }[];
+}
 
+const projects: Project[] = [
+  {
+    id: 'garmin-watchface',
+    title: 'Garmin Watch Face',
+    description:
+      "A custom Garmin watch face written in MonkeyC that collects and displays biometrics in real time.",
+    img: GarminAppImg,
+    tags: ['MonkeyC', 'Embedded'],
+    year: 2024,
+    links: [
+      { label: 'Repo (GitHub)', href: 'https://github.com/jwbmarten/jwblock' },
+    ],
+  },
+  {
+    id: 'pixel-solitaire',
+    title: 'Pixel Solitaire',
+    description:
+      'A desktop Solitaire implementation built with LibGDX (Java). I aimed to implement the game logic myself rather than rely on a full game engine so it would be lightweight and easy to ship to family members.',
+    img: PixelSolitaireImg,
+    tags: ['Java', 'LibGDX', 'Game'],
+    year: 2023,
+    links: [
+      { label: 'Repo (GitHub)', href: 'https://github.com/jwbmarten/PixelSolitaireREDUX' },
+    ],
+  },
+
+];
 
 export default function ProjectSummary(): JSX.Element {
   return (
-    <div className='flex flex-col items-center w-full '>
-      <ProjectCard 
-      projectImg={PixelSolitaireImg}
-      text={<p>Growing up, I spent summers with my grandfather, who often passed the evenings playing solitaire at the kitchen table with a well-worn deck of cards from his Air Force days. As a gift to him, and a challenge to myself, I wanted to create a desktop version of the game that he could to easily install and play on his Windows machine. Rather than use a simplified game engine such as Unity or Godot, I wanted to write as much of the game myself as I could in a feasible timeframe. I settled on using LibGDX, which is a basic game framework written in Java and has a small but dedicated userbase.</p>}
-      />
+    <div className="w-full flex flex-col items-center">
+      {projects.map((p, idx) => (
+        <React.Fragment key={p.id}>
+          <div className="w-full flex justify-center">
+            <div className="w-full max-w-[1400px] px-6">
+              <ProjectCard
+                projectImg={p.img}
+                text={(
+                  <div>
+                    <h3 className="text-2xl font-arvo text-[#fdd262] mb-2">{p.title}</h3>
+                    <p className="text-sm text-[rgb(87,111,114)]">{p.description}</p>
+                    {p.links && p.links.length > 0 && (
+                      <div className="mt-4 flex gap-3">
+                        {p.links.map((l) => (
+                          <a
+                            key={l.href}
+                            href={l.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block rounded bg-[#fdd262] text-black px-3 py-1 text-sm font-medium"
+                          >
+                            {l.label}
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              />
+            </div>
+          </div>
+
+          {/* Divider between projects (not after last) */}
+          {idx < projects.length - 1 && (
+            <div className="w-full flex justify-center my-10">
+              <div className="w-full max-w-[1400px] h-px bg-white/20" />
+            </div>
+          )}
+        </React.Fragment>
+      ))}
     </div>
   );
 }
