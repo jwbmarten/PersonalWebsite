@@ -13,9 +13,9 @@ export default function AboutSection(): JSX.Element {
 
     <div className="flex flex-col items-center relative py-6 mx-auto">
         {/* Row 1: Photo and Text*/}
-        <div className="flex flex-col-reverse md:flex-col-reverse lg:flex-row items-center justify-between w-full md:w-full lg:w-5/6 bg-black rounded-lg p-6 gap-6 shadow-xl">
+        <div className="flex flex-col-reverse md:flex-col-reverse lg:flex-row items-center justify-between w-full md:w-full lg:w-5/6">
           {/* Row 1: Text*/}
-          <p className="w-full lg:w-7/12 font-arvo text-white lg:pr-8 lg:text-lg py-4">
+          <p className="w-full lg:w-7/12 text-white lg:pr-8 lg:text-lg py-4 px-4">
             Hello, I’m Jake! I am a Master of Computer Science student at the University of Pennsylvania, with a passion for bridging the gap between technology and creativity.
             <br /><br />
             I previously spent six years as a Geoscientist integrating quantitative data to come up with new exploration concepts, and had the privilege to serve as team lead on an exploration project I had originated.
@@ -26,7 +26,7 @@ export default function AboutSection(): JSX.Element {
           </p>
           {/* Row 1: Photo*/}
           <motion.img 
-            className="h-40 w-40 sm:h-48 sm:w-48 md:h-56 md:w-56 lg:h-72 lg:w-72 rounded-full border-4 border-[#29211F] shadow-xl"
+            className="h-40 w-40 sm:h-48 sm:w-48 md:h-56 md:w-56 lg:h-72 lg:w-72 rounded-full border-2 border-black shadow-xl"
             src={PersonalPic}
             alt="Jake Marten"
             shadow-xl

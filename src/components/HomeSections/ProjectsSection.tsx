@@ -46,14 +46,14 @@ export default function ProjectSummary(): JSX.Element {
     <div className="w-full flex flex-col items-center">
       {projects.map((p, idx) => (
         <React.Fragment key={p.id}>
-          <div className="w-full flex justify-center">
+          <div className="w-full flex justify-center max-w-[1400px] rounded-lg p-6 gap-6 ">
             <div className="w-full max-w-[1400px] px-6">
               <ProjectCard
                 projectImg={p.img}
                 text={(
                   <div>
-                    <h3 className="text-2xl font-arvo text-[#fdd262] mb-2">{p.title}</h3>
-                    <p className="text-sm text-[rgb(87,111,114)]">{p.description}</p>
+                    <h3 className="text-3xl font-arvo text-[#fdd262] mb-2">{p.title}</h3>
+                    <p className="text-sm text-white">{p.description}</p>
                     {p.links && p.links.length > 0 && (
                       <div className="mt-4 flex gap-3">
                         {p.links.map((l) => (

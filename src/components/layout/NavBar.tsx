@@ -28,8 +28,8 @@ function NavText({ href, text, isMain}: NavTextProps): JSX.Element {
 
 export default function NavBar(): JSX.Element {
     return (
-            <motion.nav 
-            className="z-50 w-2/5 lg:w-1/2 mx-auto rounded-xl shadow-xl bg-zinc-800"
+        <motion.nav 
+        className="z-50 inline-flex items-center rounded-xl shadow-xl bg-zinc-800 px-3 py-2"
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 0.80, scale: 1 }}
             transition={{
@@ -38,24 +38,26 @@ export default function NavBar(): JSX.Element {
                 ease: [0, 0.71, 0.2, 1.01],
             }}>
 
-            <div className=' flex h-15 lg:h-20 flex-row items-center justify-center py-6 lg:flex-row lg:justify-between'>
-                <ul className="ml-20 hidden w-1/4 items-center justify-between font-paragraph text-2xl text-skin-base lg:flex">
+            <div className='flex h-15 lg:h-20 items-center justify-center py-4 gap-4 lg:gap-8'>
+                <ul className="hidden lg:flex items-center gap-6 font-paragraph text-2xl text-skin-base">
 
 
-                    <li className='px-1 lg:px-4 mx-auto'>
+                    <li className='px-1 lg:px-4'>
                         <NavText href='/' text='Home' isMain={true} />
                     </li>
-                    <li className='px-1 lg:px-4 mx-auto'>
+                    <li className='px-1 lg:px-4'>
                         <NavText href='/games' text='About' />
                     </li>
-                    <li className='px-1 lg:px-4 mx-auto'>
+                    <li className='px-1 lg:px-4'>
                         <NavText href='/games' text='Projects' />
                     </li>
-                    <li className='px-1 lg:px-4 mx-auto'>
+                    <li className='px-1 lg:px-4'>
                         <NavText href='/games' text='Contact' />
                     </li>
                 </ul>
-                <Socials/>
+                <div className="ml-2 lg:ml-6">
+                  <Socials/>
+                </div>
             </div>
             
         </motion.nav>
