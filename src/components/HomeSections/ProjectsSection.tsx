@@ -75,12 +75,7 @@ export default function ProjectSummary(): JSX.Element {
             </div>
           </div>
 
-          {/* Divider between projects (not after last) */}
-          {idx < projects.length - 1 && (
-            <div className="w-full flex justify-center my-10">
-              <div className="w-full max-w-[1400px] h-px bg-white/20" />
-            </div>
-          )}
+          {/* (No divider between projects — handled by section header divider) */}
         </React.Fragment>
       ))}
     </div>
