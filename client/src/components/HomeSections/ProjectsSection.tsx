@@ -1,7 +1,7 @@
-import React, { JSX } from "react";
+import type { JSX } from "react";
 import ProjectCard from "../layout/ProjectCard";
-import PixelSolitaireImg from '../../assets/PixelSolitaire.png'
-import GarminAppImg from '../../assets/jwbBlock.png'
+import PixelSolitaireImg from "../../assets/PixelSolitaire.png";
+import GarminAppImg from "../../assets/jwbBlock.png";
 
 type Project = {
   id: string;
@@ -11,46 +11,43 @@ type Project = {
   tags?: string[];
   year?: number | string;
   links?: { label: string; href: string }[];
-}
+};
 
 const projects: Project[] = [
   {
-    id: 'garmin-watchface',
-    title: 'Garmin Watch Face',
+    id: "garmin-watchface",
+    title: "Garmin Watch Face",
     description:
       "A custom Garmin watch face written in MonkeyC that collects and displays biometrics in real time.",
     img: GarminAppImg,
-    tags: ['MonkeyC', 'Embedded'],
+    tags: ["MonkeyC", "Embedded"],
     year: 2024,
-    links: [
-      { label: 'Repo (GitHub)', href: 'https://github.com/jwbmarten/jwblock' },
-    ],
+    links: [{ label: "Repo (GitHub)", href: "https://github.com/jwbmarten/jwblock" }],
   },
   {
-    id: 'pixel-solitaire',
-    title: 'Pixel Solitaire',
+    id: "pixel-solitaire",
+    title: "Pixel Solitaire",
     description:
-      'A desktop Solitaire implementation built with LibGDX (Java). I aimed to implement the game logic myself rather than rely on a full game engine so it would be lightweight and easy to ship to family members.',
+      "A desktop Solitaire implementation built with LibGDX (Java). I aimed to implement the game logic myself rather than rely on a full game engine so it would be lightweight and easy to ship to family members.",
     img: PixelSolitaireImg,
-    tags: ['Java', 'LibGDX', 'Game'],
+    tags: ["Java", "LibGDX", "Game"],
     year: 2023,
     links: [
-      { label: 'Repo (GitHub)', href: 'https://github.com/jwbmarten/PixelSolitaireREDUX' },
+      { label: "Repo (GitHub)", href: "https://github.com/jwbmarten/PixelSolitaireREDUX" },
     ],
   },
-
 ];
 
-export default function ProjectSummary(): JSX.Element {
+export default function ProjectsSection(): JSX.Element {
   return (
     <div className="w-full flex flex-col items-center">
-      {projects.map((p, idx) => (
-        <React.Fragment key={p.id}>
-          <div className="w-full flex justify-center max-w-[1400px] rounded-lg p-6 gap-6 ">
-            <div className="w-full max-w-[1400px] px-6">
-              <ProjectCard
-                projectImg={p.img}
-                text={(
+      {projects.map((p) => (
+        <div key={p.id} className="w-full flex justify-center max-w-[1400px] rounded-lg p-6 gap-6 ">
+          <div className="w-full max-w-[1400px] px-6">
+            <ProjectCard
+              projectImg={p.img}
+              text={
+                (
                   <div>
                     <h3 className="text-3xl font-arvo text-[#fdd262] mb-2">{p.title}</h3>
                     <p className="text-sm text-white">{p.description}</p>
@@ -70,13 +67,11 @@ export default function ProjectSummary(): JSX.Element {
                       </div>
                     )}
                   </div>
-                )}
-              />
-            </div>
+                )
+              }
+            />
           </div>
-
-          {/* (No divider between projects — handled by section header divider) */}
-        </React.Fragment>
+        </div>
       ))}
     </div>
   );

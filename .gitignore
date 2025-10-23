@@ -25,3 +25,7 @@ dist-ssr
 
 # Ignore AI agent instruction files
 .github/copilot-instructions.md
+
+
+#Ignore .env
+.env

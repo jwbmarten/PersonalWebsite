@@ -1,12 +1,11 @@
-import React, { JSX, useEffect, useRef } from "react";
-import {motion} from "motion/react"
-import NameCard from "../layout/NameCard";
-import ProgrammingLogos from "../layout/ProgrammingLogos";
+import { JSX, useEffect, useRef, useState } from "react";
+import { pingApi } from "../../lib/api";
 
 
 export default function HeroSection(): JSX.Element {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const vantaRef = useRef<any>(null);
+  
 
   useEffect(() => {
     let cancelled = false;
@@ -65,6 +64,25 @@ export default function HeroSection(): JSX.Element {
     };
   }, []);
 
+ 
+  const [status, setStatus] = useState<"OK" | "DOWN">("DOWN");
+  const [rtt, setRtt] = useState<number | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function check() {
+      const { ok, rttMs } = await pingApi();
+      if (cancelled) return;
+      setStatus(ok ? "OK" : "DOWN");
+      setRtt(Math.round(rttMs));
+    }
+
+    check();                              // run once on mount
+    const id = setInterval(check, 30000); // then every 30s
+    return () => { cancelled = true; clearInterval(id); };
+  }, []);
+
   return (
     <header ref={containerRef} className="w-full min-h-screen relative flex items-center justify-center overflow-hidden">
       <div className="mx-auto w-full max-w-[1400px] px-6 py-12 flex flex-col items-center justify-center z-10">
@@ -75,7 +93,7 @@ export default function HeroSection(): JSX.Element {
         {/* Lower banner */}
         <div className="mt-8 flex flex-row justify-center bg-[#D3DDDC] h-14 sm:h-16 w-11/12 sm:w-3/4 md:w-2/3 items-center rounded z-10">
           <div className="flex w-full justify-between px-4 text-sm sm:text-base font-spartan text-black font-[500]">
-            <span>Frontend Server Status: "OK", Uptime: 12 days 4 hours</span>
+            <span>Frontend Server Status: "{status}" {rtt !== null && `, RTT: ${rtt} ms`}</span>
             <span>RM-TS/254</span>
           </div>
         </div>

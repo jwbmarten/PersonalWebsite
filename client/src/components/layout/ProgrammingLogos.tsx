@@ -1,4 +1,4 @@
-import React, { JSX } from "react";
+import type { JSX } from "react";
 import CLogo from "../../assets/icons8-c-programming.svg";
 import JavaLogo from "../../assets/icons8-java.svg";
 import PythonLogo from "../../assets/icons8-python-100.svg";

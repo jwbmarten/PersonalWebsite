@@ -1,10 +1,5 @@
 import { JSX } from "react";
-import {motion} from "motion/react"
-import NameCard from "../layout/NameCard";
-import ProgrammingLogos from "../layout/ProgrammingLogos";
-
 import PersonalPic from "../../assets/personalPic.jpg"
-import Timeline from "../../assets/timelineBlackText.png"
 
 
 
@@ -25,12 +20,10 @@ export default function AboutSection(): JSX.Element {
             In my free time I like to tackle projects that require me to pick up new languages and technologies and hope to never stop learning.
           </p>
           {/* Row 1: Photo*/}
-          <motion.img 
+          <img
             className="h-40 w-40 sm:h-48 sm:w-48 md:h-56 md:w-56 lg:h-72 lg:w-72 rounded-full border-2 border-black shadow-xl"
             src={PersonalPic}
             alt="Jake Marten"
-            shadow-xl
-            // whileHover={{ scale: 1.2 }}
           />
         </div>
 

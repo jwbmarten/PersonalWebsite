@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
 import type { JSX, ReactNode } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 import HeroSection from "../HomeSections/HeroSection";
 import AboutSection from "../HomeSections/AboutSection";

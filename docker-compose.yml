@@ -1,0 +1,40 @@
+services:
+  # Reverse proxy + static site
+  caddy:
+    image: caddy:2-alpine               # Uses prebuild image of the official Caddy image, version 2, Alpine linux variant (small footprint).
+    ports:
+      - "${CADDY_PORT}:80"              # Direct incoming connections to the Pi (on whatever port {CADDY_PORT} is set to in the .evn) to port 80 in the container.
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro     # Mounts the Caddyfile to the caddy container at /etc/caddy/Caddyfile, this is where caddy expects it (ro - read only).
+      - ./client/dist:/srv:ro                         # Mounts the static pages generated from the website build (which get stored in /client/dist at build time) to the caddy container at /srv.
+    depends_on:
+      - site_api                                      # Ensure site_api is started before caddy.
+    restart: unless-stopped                           # Auto restart the container if it exits/crashes except when manually stopped.
+
+  # Spring Boot backend
+  site_api: 
+    build: ./services/api               # Builds a custom image for the backend api using the Dockerfile at /services/api.
+    expose:
+      - "8080"                          # Exposes api within the Docker network at port 8080, does not get exposed to the LAN.
+
+    ### environment: injects runtime environment variables into the site_api container, 
+    #this lets the Spring Boot process see and use them like any other OS env vars and can use them for config.
+    environment:
+      - SERVER_PORT=${SERVER_PORT}                                                  
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB}        
+      - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
+      - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine           # Uses prebuild image of the official Postgres 15 image, Alpine linux variant (small footprint)
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  pgdata:

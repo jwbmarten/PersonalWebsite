@@ -1,0 +1,17 @@
+
+  # Anything under /api should go to the Spring container.
+  # handle_path strips the /api prefix before forwarding,
+  # so external /api/ping -> internal /ping
+:80 {
+  handle_path /api/* {
+    reverse_proxy site_api:8080
+  }
+
+  # Everything else is served from static frontend build output
+  handle {
+    root * /srv
+    file_server
+    # If you're using a SPA (React Router), this serves index.html for deep links
+    try_files {path} /index.html
+  }
+}
