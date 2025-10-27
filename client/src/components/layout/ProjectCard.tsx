@@ -15,7 +15,7 @@ export default function ProjectCard({projectImg, text}: ProjectCardProps): JSX.E
 
     <div className="flex flex-col items-center">
       {/* Row 1: Photo and Text */}
-      <div className="flex flex-col-reverse lg:flex-row items-center w-full lg:w-2/3 rounded-lg p-6 bg-[rgb(35,39,47)] gap-6 text-white lg:gap-10 ">
+      <div className="flex flex-col-reverse items-center w-full lg:w-2/3 rounded-lg p-6 bg-[rgb(35,39,47)] gap-6 text-white lg:gap-10 ring-1 ring-black shadow-xl">
         {/* Row 1: Text */}
         <div className="flex-1">{text}</div>
 

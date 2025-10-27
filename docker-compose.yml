@@ -11,6 +11,8 @@ services:
       - site_api                                      # Ensure site_api is started before caddy.
     restart: unless-stopped                           # Auto restart the container if it exits/crashes except when manually stopped.
 
+
+
   # Spring Boot backend
   site_api: 
     build: ./services/api               # Builds a custom image for the backend api using the Dockerfile at /services/api.
@@ -20,18 +22,21 @@ services:
     ### environment: injects runtime environment variables into the site_api container, 
     #this lets the Spring Boot process see and use them like any other OS env vars and can use them for config.
     environment:
-      - SERVER_PORT=${SERVER_PORT}                                                  
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/${POSTGRES_DB}        
+      - SERVER_PORT=${SERVER_PORT}
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE:-dev}                                                  
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/pwDEV      
       - SPRING_DATASOURCE_USERNAME=${POSTGRES_USER}
       - SPRING_DATASOURCE_PASSWORD=${POSTGRES_PASSWORD}
+    depends_on:
+      - postgres
     restart: unless-stopped
 
   postgres:
     image: postgres:15-alpine           # Uses prebuild image of the official Postgres 15 image, Alpine linux variant (small footprint)
     environment:
-      - POSTGRES_DB=${POSTGRES_DB}
-      - POSTGRES_USER=${POSTGRES_USER}
-      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB:-pwDEV}
+      - POSTGRES_USER=${POSTGRES_USER:-devuser}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-devpass}
     volumes:
       - pgdata:/var/lib/postgresql/data
     restart: unless-stopped

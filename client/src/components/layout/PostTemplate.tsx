@@ -21,7 +21,7 @@ interface PostProps {
 
 export default function PostTemplate({ title, date, tags, content }: PostProps): JSX.Element {
   return (
-    <article className="w-full max-w-[900px] mx-auto bg-[rgb(35,39,47)] rounded-lg p-6 text-white">
+    <article className="w-full max-w-[900px] mx-auto bg-[rgb(35,39,47)] rounded-lg p-6 text-white shadow-xl ring-1 ring-black">
       <header className="mb-4">
         <h2 className="text-3xl font-arvo text-[#fdd262]">{title}</h2>
         <div className="text-sm text-[rgb(140,150,150)]">{new Date(date).toLocaleDateString()}</div>

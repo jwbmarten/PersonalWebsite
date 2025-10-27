@@ -1,0 +1,25 @@
+services:
+  site_api:
+
+    image: ghcr.io/jwbmarten/site-api:${IMAGE_TAG}
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/pwPROD
+      SPRING_DATASOURCE_USERNAME: produser
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}               #read the password from the .env on the Pi
+    depends_on:
+      - postgres
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_DB: pwPROD
+      POSTGRES_USER: produser
+      POSTGRES_PASSWORD_FILE: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata_prod:/var/lib/postgresql/data
+    restart: unless-stopped
+
+volumes:
+  pgdata_prod: {}

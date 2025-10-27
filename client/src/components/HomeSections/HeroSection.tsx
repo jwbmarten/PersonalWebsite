@@ -8,7 +8,11 @@ export default function HeroSection(): JSX.Element {
   
 
   useEffect(() => {
+  // Guard conditions
+  const prefersReduced = typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
     let cancelled = false;
+    let observer: IntersectionObserver | null = null;
 
     const loadScript = (src: string) =>
       new Promise<void>((resolve, reject) => {
@@ -23,6 +27,9 @@ export default function HeroSection(): JSX.Element {
 
     async function initVanta() {
       try {
+  if (cancelled) return;
+  if (prefersReduced) return;
+
         if (!(window as any).p5) {
           await loadScript('https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js');
         }
@@ -40,19 +47,25 @@ export default function HeroSection(): JSX.Element {
             gyroControls: false,
             minHeight: 200.0,
             minWidth: 200.0,
-            scale: 1.0,
-            scaleMobile: 1.0,
+            scale: 0.85,
+            scaleMobile: 0.7,
+            spacing: 3,
           });
         }
       } catch (err) {
-        // loading failed, ignore
+        // loading or init failed; ensure cleanup
+        try {
+          if (vantaRef.current && typeof vantaRef.current.destroy === 'function') {
+            vantaRef.current.destroy();
+            vantaRef.current = null;
+          }
+        } catch (e) {
+          // ignore
+        }
       }
     }
 
-    initVanta();
-
-    return () => {
-      cancelled = true;
+    const destroyVanta = () => {
       try {
         if (vantaRef.current && typeof vantaRef.current.destroy === 'function') {
           vantaRef.current.destroy();
@@ -61,6 +74,38 @@ export default function HeroSection(): JSX.Element {
       } catch (e) {
         // ignore
       }
+    };
+
+    // Use IntersectionObserver: only init when hero is visible, destroy when not.
+    if (containerRef.current && typeof IntersectionObserver !== 'undefined') {
+      const onIntersect: IntersectionObserverCallback = (entries) => {
+        for (const entry of entries) {
+          if (entry.target !== containerRef.current) continue;
+          if (entry.isIntersecting) initVanta(); else destroyVanta();
+        }
+      };
+      observer = new IntersectionObserver(onIntersect, { root: null, threshold: 0.05 });
+      observer.observe(containerRef.current);
+    } else {
+      // fallback: initialize immediately (subject to guards)
+      initVanta();
+    }
+
+    const onResize = () => {
+      // On resize, ensure Vanta is initialized if the hero is visible and settings allow.
+      if (!containerRef.current) return;
+      const rect = containerRef.current.getBoundingClientRect();
+      const visible = rect.height > 0 && rect.width > 0 && rect.top < window.innerHeight && rect.bottom > 0;
+      if (visible) initVanta();
+    };
+    window.addEventListener('resize', onResize);
+
+    return () => {
+      cancelled = true;
+      window.removeEventListener('resize', onResize);
+      if (observer && containerRef.current) observer.unobserve(containerRef.current);
+      if (observer) observer.disconnect();
+      destroyVanta();
     };
   }, []);
 
@@ -83,20 +128,39 @@ export default function HeroSection(): JSX.Element {
     return () => { cancelled = true; clearInterval(id); };
   }, []);
 
+const isOk = String(status).toUpperCase() === "OK";
+
   return (
     <header ref={containerRef} className="w-full min-h-screen relative flex items-center justify-center overflow-hidden">
       <div className="mx-auto w-full max-w-[1400px] px-6 py-12 flex flex-col items-center justify-center z-10">
         <h1 className="text-7xl lg:text-9xl font-spartan text-[#fdd262] font-[700] leading-tight text-center">JAKE</h1>
         <h1 className="mt-2 text-7xl  lg:text-9xl font-spartan text-[#fdd262] font-[700] leading-tight text-center">MARTEN</h1>
-        <p className="text-white sm:text-center xs:text-center w-11/12 sm:w-3/4 md:w-2/3">Hi, welcome to my personal website! This site is self-hosted on a Raspberry Pi 4b, read more about it here! </p>
+        <p className="text-white sm:text-center xs:text-center w-11/12 sm:w-3/4 md:w-2/3">Hi, welcome to my personal website! This site is self-hosted on a Raspberry Pi, read more about it here! </p>
 
         {/* Lower banner */}
-        <div className="mt-8 flex flex-row justify-center bg-[#D3DDDC] h-14 sm:h-16 w-11/12 sm:w-3/4 md:w-2/3 items-center rounded z-10">
-          <div className="flex w-full justify-between px-4 text-sm sm:text-base font-spartan text-black font-[500]">
-            <span>Frontend Server Status: "{status}" {rtt !== null && `, RTT: ${rtt} ms`}</span>
-            <span>RM-TS/254</span>
-          </div>
-        </div>
+<div className="mt-12 flex flex-row justify-center h-auto w-auto items-center ">
+  <div className=" flex flex-col w-full justify-between items-center p-2 text-xs font-mono text-white font-[500] rounded-xl backdrop-blur-xs shadow-lg ring-2 ring-black ">
+    <span>
+      Backend Server Status:{" "}
+      <span
+        className={
+          `font-semibold ` +
+          (isOk
+            ? 'text-green-400 [text-shadow:0_0_8px_rgba(74,222,128,.55)]'
+            : 'text-red-400 [text-shadow:0_0_8px_rgba(248,113,113,.55)]')
+        }
+      >
+        "{status}"
+      </span>    
+      </span>
+
+      <span>{rtt != null && `Round Trip Time: ${rtt} ms`}</span>
+
+
+    <span>Current Uptime: 24 hr</span>
+    <span>testing</span>
+  </div>
+</div>
       </div>
     </header>
   );

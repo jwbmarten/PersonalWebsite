@@ -1,0 +1,14 @@
+services:
+  site_api:
+    build: 
+      context: ./services/api
+    environment:                                     ## SET ENVIRONMENT VARS FOR DEV MODE
+      SPRING_PROFILES_ACTIVE: dev
+      SPRING_DATASOURCE_URL:  jdbc:postgresql://postgres:5432/pwDEV
+      POSTGRES_USER: devuser
+      POSTGRES_PASSWORD: devpass
+
+  postgres:
+    ports:
+    - "5432:5432"
+
