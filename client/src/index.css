@@ -70,22 +70,22 @@ button:focus-visible {
 }
 
 @font-face {
-  font-family: 'LeageSpartan';
-  src: url(src/assets/League_Spartan/LeageSpartan-VariableFont-wght.tff);
+  font-family: 'LeagueSpartan';
+  src: url('./assets/League_Spartan/LeagueSpartan-VariableFont_wght.ttf');
   font-weight: 100 900;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Arvo';
-  src: url(src/assets/Arvo/Arvo-Regular.ttf);
+  src: url('./assets/Arvo/Arvo-Regular.ttf');
   font-weight: 400;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'Arvo';
-  src: url(src/assets/Arvo/Arvo-Italic.ttf);
+  src: url('./assets/Arvo/Arvo-Italic.ttf');
   font-weight: 400;
   font-style: italic;
 }

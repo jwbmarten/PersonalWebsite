@@ -1,5 +1,6 @@
-import { JSX, useEffect, useRef, useState } from "react";
-import { pingApi } from "../../lib/api";
+import { JSX, useEffect, useRef } from "react";
+import ServerStatusCard from "../analytics/ServerStatusCard";
+import MusicRecCard from "../layout/MusicRecCard";
 
 
 export default function HeroSection(): JSX.Element {
@@ -110,25 +111,7 @@ export default function HeroSection(): JSX.Element {
   }, []);
 
  
-  const [status, setStatus] = useState<"OK" | "DOWN">("DOWN");
-  const [rtt, setRtt] = useState<number | null>(null);
-
-  useEffect(() => {
-    let cancelled = false;
-
-    async function check() {
-      const { ok, rttMs } = await pingApi();
-      if (cancelled) return;
-      setStatus(ok ? "OK" : "DOWN");
-      setRtt(Math.round(rttMs));
-    }
-
-    check();                              // run once on mount
-    const id = setInterval(check, 30000); // then every 30s
-    return () => { cancelled = true; clearInterval(id); };
-  }, []);
-
-const isOk = String(status).toUpperCase() === "OK";
+  
 
   return (
     <header ref={containerRef} className="w-full min-h-screen relative flex items-center justify-center overflow-hidden">
@@ -138,27 +121,16 @@ const isOk = String(status).toUpperCase() === "OK";
         <p className="text-white sm:text-center xs:text-center w-11/12 sm:w-3/4 md:w-2/3">Hi, welcome to my personal website! This site is self-hosted on a Raspberry Pi, read more about it here! </p>
 
         {/* Lower banner */}
-<div className="mt-12 flex flex-row justify-center h-auto w-auto items-center ">
+<div className="mt-12 flex flex-col justify-center h-auto w-auto items-center ">
+    <ServerStatusCard />
+
   <div className=" flex flex-col w-full justify-between items-center p-2 text-xs font-mono text-white font-[500] rounded-xl backdrop-blur-xs shadow-lg ring-2 ring-black ">
-    <span>
-      Backend Server Status:{" "}
-      <span
-        className={
-          `font-semibold ` +
-          (isOk
-            ? 'text-green-400 [text-shadow:0_0_8px_rgba(74,222,128,.55)]'
-            : 'text-red-400 [text-shadow:0_0_8px_rgba(248,113,113,.55)]')
-        }
-      >
-        "{status}"
-      </span>    
-      </span>
+    <h6>Randomized Music Rec</h6>
+    {/* Insert the MusicRecCard so the randomized recommendation is visible here */}
+    <div className="w-full flex justify-center mt-3">
+      <MusicRecCard />
+    </div>
 
-      <span>{rtt != null && `Round Trip Time: ${rtt} ms`}</span>
-
-
-    <span>Current Uptime: 24 hr</span>
-    <span>testing</span>
   </div>
 </div>
       </div>

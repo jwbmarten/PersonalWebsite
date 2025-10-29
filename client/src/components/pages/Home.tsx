@@ -72,7 +72,11 @@ export default function Home(): JSX.Element {
   const navOpacity = useTransform(heroScroll, [0, 0.75, 0.85], [1, 0.8, 0]);
 
   return (
-    <div className='w-full'>
+    // Add top padding so fixed navbar does not overlap page content.
+    // `pt-20` (80px) for small screens and `lg:pt-28` (112px) for large screens is
+    // chosen to match the navbar's visual height + top offset (`top-4`). Adjust if you
+    // change navbar sizing.
+    <div className='w-full pt-20 lg:pt-28'>
       {/* NavBar is wrapped in a motion.div that is fixed to the top (removed from flow) */}
       <motion.div style={{ opacity: navOpacity }} className="fixed top-4 left-0 right-0 z-50 flex justify-center">
         <NavBar />
