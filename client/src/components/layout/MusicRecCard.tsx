@@ -73,12 +73,11 @@ export default function MusicRecCard(): JSX.Element {
                     <div>
                         <div className="text-base font-semibold leading-tight">{song?.title ?? 'Unknown Title'}</div>
                         <div className="text-sm text-gray-300">{song?.artist ?? 'Unknown Artist'}</div>
+                        <div className="text-sm text-gray-300">{song?.album ?? 'Unknown Album'}</div>
                     </div>
                 </div>
 
                 <div className="mt-2 flex items-center justify-between">
-                    <div className="text-sm text-gray-300">{song?.album ?? 'Unknown Album'}</div>
-
                     <div className="flex items-center gap-3">
                         {song?.spotify_url && (
                             <a href={song.spotify_url} target="_blank" rel="noopener noreferrer" className="text-xs px-2 py-1 bg-green-600/80 rounded text-white">Spotify</a>

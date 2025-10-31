@@ -40,14 +40,34 @@ export default function HeroSection(): JSX.Element {
 
         if (cancelled) return;
 
-        if ((window as any).VANTA && containerRef.current && !(vantaRef.current)) {
+        // Wait for the hero container to have a stable layout on mobile/first-load.
+        // On some devices the initial layout measurements are 0 or smaller than
+        // the Vanta minWidth/minHeight, causing init to skip. Retry a few times
+        // with rAF/timeouts before initializing.
+        const waitForLayout = async (attempts = 8, delayMs = 120) => {
+          for (let i = 0; i < attempts; i++) {
+            if (cancelled) return false;
+            const el = containerRef.current;
+            if (el) {
+              const r = el.getBoundingClientRect();
+              if (r.width >= 50 && r.height >= 50) return true;
+            }
+            // Wait for next animation frame + a short timeout to allow fonts/layout
+            await new Promise<void>(res => requestAnimationFrame(() => setTimeout(res, delayMs)));
+          }
+          return !!(containerRef.current && containerRef.current.getBoundingClientRect().width > 0);
+        };
+
+        const ready = await waitForLayout();
+        if ((window as any).VANTA && containerRef.current && !(vantaRef.current) && ready) {
           vantaRef.current = (window as any).VANTA.TRUNK({
             el: containerRef.current,
             mouseControls: true,
             touchControls: true,
             gyroControls: false,
-            minHeight: 200.0,
-            minWidth: 200.0,
+            // lower min sizes so mobile doesn't skip init
+            minHeight: 50.0,
+            minWidth: 50.0,
             scale: 0.85,
             scaleMobile: 0.7,
             spacing: 3,
