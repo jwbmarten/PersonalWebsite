@@ -13,6 +13,7 @@ export default function MusicRecCard(): JSX.Element {
 
     const [song, setSong] = useState<SongRec | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [refresh, setRefresh] = useState(0);
 
     useEffect(() => {
         let cancelled = false;
@@ -50,7 +51,7 @@ export default function MusicRecCard(): JSX.Element {
         return () => {
             cancelled = true;
         };
-    }, []);
+    }, [refresh]);
 
     const artSrc = song?.art_url || '';
 
@@ -77,7 +78,7 @@ export default function MusicRecCard(): JSX.Element {
                     </div>
                 </div>
 
-                <div className="mt-2 flex items-center justify-between">
+                <div className="mt-2 flex flex-col items-center justify-between">
                     <div className="flex items-center gap-3">
                         {song?.spotify_url && (
                             <a href={song.spotify_url} target="_blank" rel="noopener noreferrer" className="text-xs px-2 py-1 bg-green-600/80 rounded text-white">Spotify</a>
@@ -86,6 +87,13 @@ export default function MusicRecCard(): JSX.Element {
                             <a href={song.youtube_url} target="_blank" rel="noopener noreferrer" className="text-xs px-2 py-1 bg-red-600/80 rounded text-white">YouTube</a>
                         )}
                     </div>
+                        <button
+                            type="button"
+                            onClick={() => setRefresh((r) => r + 1)}
+                            className="ml-3 text-xs px-3 py-1 rounded bg-[#fdd262] text-black font-medium hover:bg-[#fdd262]/90 transition"
+                        >
+                            New recommendation
+                        </button>
                 </div>
 
                 {error && <div className="mt-2 text-xs text-red-400">Error: {error}</div>}

@@ -10,14 +10,14 @@ export default function AboutSection(): JSX.Element {
         {/* Row 1: Photo and Text*/}
         <div className="flex flex-col-reverse md:flex-col-reverse lg:flex-row items-center justify-between w-full md:w-full lg:w-5/6">
           {/* Row 1: Text*/}
-          <p className="w-full lg:w-7/12 text-white lg:pr-8 lg:text-lg py-4 px-4">
-            Hello, I’m Jake! I am a Master of Computer Science student at the University of Pennsylvania, with a passion for bridging the gap between technology and creativity.
+          <p className="w-full lg:w-8/12 text-white lg:pr-8 lg:text-lg py-4 px-4">
+            Hello, I’m Jake! I'm a Master's student studying Computer Science student at the University of Pennsylvania who loves building things from the ground up.
             <br /><br />
-            I previously spent six years as a Geoscientist integrating quantitative data to come up with new exploration concepts, and had the privilege to serve as team lead on an exploration project I had originated.
+            I enjoy creating full-stack web projects, tinkering with backend infrastructure, and self-hosting just to see how it all fits together.
             <br /><br />
-            One of my greatest pleasures is breaking complex things into simplified products where they can be more easily understood and used by others.
+            One of my favorite parts of building software is the magic of breaking complex systems into simple, useful products that anyone can enjoy.
             <br /><br />
-            In my free time I like to tackle projects that require me to pick up new languages and technologies and hope to never stop learning.
+            Outside of tech, I’m a big fan of cycling, movies, and Penn State football.
           </p>
           {/* Row 1: Photo*/}
           <img

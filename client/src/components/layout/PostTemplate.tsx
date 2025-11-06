@@ -1,4 +1,7 @@
 import { JSX } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 interface ContentBlockText {
   type: 'text';
@@ -21,9 +24,9 @@ interface PostProps {
 
 export default function PostTemplate({ title, date, tags, content }: PostProps): JSX.Element {
   return (
-    <article className="w-full max-w-[900px] mx-auto bg-[rgb(35,39,47)] rounded-lg p-6 text-white shadow-xl ring-1 ring-black">
+    <article className="w-full max-w-[1000px] mx-auto bg-[rgb(35,39,47)] rounded-lg p-6 text-white shadow-xl ring-1 ring-black">
       <header className="mb-4">
-        <h2 className="text-3xl font-arvo text-[#fdd262]">{title}</h2>
+        <h3 className="text-3xl font-arvo text-[#fdd262] ">{title}</h3>
         <div className="text-sm text-[rgb(140,150,150)]">{new Date(date).toLocaleDateString()}</div>
         {tags && tags.length > 0 && (
           <div className="mt-2 flex gap-2">
@@ -36,7 +39,42 @@ export default function PostTemplate({ title, date, tags, content }: PostProps):
 
       <div className="prose prose-invert max-w-none">
         {content.map((c, i) => {
-          if (c.type === 'text') return <p key={i} className="mb-4">{c.text}</p>;
+          if (c.type === 'text') {
+            return (
+              <div className="mb-4">
+                <ReactMarkdown
+                  key={i}
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeRaw]}
+                  components={{
+                    a: (props) => (
+                      <a {...props} target="_blank" className="text-[#fdd262] underline hover:opacity-80" rel="noopener noreferrer" />
+                    ),
+                    h2: (props: any) => (
+                      <h2
+                        {...props}
+                        className={`${props.className ?? ''} mt-8 mb-3 text-2xl lg:text-3xl font-arvo`}
+                      />
+                    ),
+                    h3: (props: any) => (
+                      <h3
+                        {...props}
+                        className={`${props.className ?? ''} mt-6 mb-2 text-xl lg:text-2xl font-arvo`}
+                      />
+                    ),
+                    h4: (props: any) => (
+                      <h4
+                        {...props}
+                        className={`${props.className ?? ''} mt-5 mb-2 text-lg lg:text-xl font-arvo`}
+                      />
+                    ),
+                  }}
+                >
+                  {c.text}
+                </ReactMarkdown>
+              </div>
+            )
+          }
           return (
             <div key={i} className="mb-4">
               <img src={c.src} alt={c.alt ?? ''} className="w-full rounded" />

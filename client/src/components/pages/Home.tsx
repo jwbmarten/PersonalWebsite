@@ -11,7 +11,7 @@ import PostsSection from "../HomeSections/PostsSection";
 import contactHeaderImg from "../../assets/Contact.png";
 
 // Centralized header class for all SectionWithProgress text headers
-const SECTION_HEADER_CLASS = "text-3xl lg:text-8xl font-spartan text-[#fdd262] text-shadow-lg font-[700] bg-[#222426]";
+const SECTION_HEADER_CLASS = "text-5xl lg:text-7xl font-spartan text-[#fdd262] text-shadow-lg font-[700] bg-[#222426]";
 
 interface SectionWithProgressProps {
   // header may be a simple string (rendered with SECTION_HEADER_CLASS) or a ReactNode (e.g., an <img />)
@@ -30,7 +30,7 @@ function SectionWithProgress({ header, children }: SectionWithProgressProps): JS
   });
 
   return (
-    <section ref={ref} className="relative py-10 mx-auto max-w-[1400px]">
+    <section ref={ref} className="relative py-10 mx-auto max-w-[1200px]">
       {/* Header for this section */}
       <div className=" top-0 flex items-center justify-center z-10">
         {/* Header is rendered here; center on mobile, keep start on large screens */}
@@ -92,11 +92,11 @@ export default function Home(): JSX.Element {
         <AboutSection/>
       </SectionWithProgress>
 
-      <SectionWithProgress header={"PROJECTS"}>
+      <SectionWithProgress header={"FEATURED PROJECTS"}>
         <ProjectsSection/>
       </SectionWithProgress>
 
-      <SectionWithProgress header={"POSTS"}>
+      <SectionWithProgress header={"LATEST POST"}>
         <PostsSection />
       </SectionWithProgress>
 

@@ -55,7 +55,7 @@ export default function ServerStatusCard(): JSX.Element {
     return (
     <div className=" flex flex-col w-full justify-between items-center m-10 p-2 text-xs font-mono text-white font-[500] rounded-xl backdrop-blur-xs shadow-lg ring-2 ring-black ">
         <span>
-        Backend Server Status:{" "}
+        Spring Server Status:{" "}
         <span
             className={
             `font-semibold ` +
@@ -68,7 +68,7 @@ export default function ServerStatusCard(): JSX.Element {
         </span>    
         </span>
 
-        <span>{rtt != null && `Round Trip Time: ${rtt} ms`}</span>
+        <span>{rtt != null && `Server ping: ${rtt} ms`}</span>
 
         <span>Current Server Uptime: {uptimeDays} days, {uptimeHours} hours</span>
     </div>

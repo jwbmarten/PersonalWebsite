@@ -65,7 +65,6 @@ export default function HeroSection(): JSX.Element {
             mouseControls: true,
             touchControls: true,
             gyroControls: false,
-            // lower min sizes so mobile doesn't skip init
             minHeight: 50.0,
             minWidth: 50.0,
             scale: 0.85,
@@ -136,23 +135,20 @@ export default function HeroSection(): JSX.Element {
   return (
     <header ref={containerRef} className="w-full min-h-screen relative flex items-center justify-center overflow-hidden">
       <div className="mx-auto w-full max-w-[1400px] px-6 py-12 flex flex-col items-center justify-center z-10">
-        <h1 className="text-7xl lg:text-9xl font-spartan text-[#fdd262] font-[700] leading-tight text-center">JAKE</h1>
-        <h1 className="mt-2 text-7xl  lg:text-9xl font-spartan text-[#fdd262] font-[700] leading-tight text-center">MARTEN</h1>
+        <h1 className="text-7xl md:text-8xl lg:text-9xl font-spartan text-[#fdd262] font-[700] leading-tight text-center">JAKE</h1>
+        <h1 className="mt-2 text-7xl md:text-8xl lg:text-9xl font-spartan text-[#fdd262] font-[700] leading-tight text-center">MARTEN</h1>
         <p className="text-white sm:text-center xs:text-center w-11/12 sm:w-3/4 md:w-2/3">Hi, welcome to my personal website! This site is self-hosted on a Raspberry Pi, read more about it here! </p>
 
         {/* Lower banner */}
-<div className="mt-12 flex flex-col justify-center h-auto w-auto items-center ">
-    <ServerStatusCard />
-
-  <div className=" flex flex-col w-full justify-between items-center p-2 text-xs font-mono text-white font-[500] rounded-xl backdrop-blur-xs shadow-lg ring-2 ring-black ">
-    <h6>Randomized Music Rec</h6>
-    {/* Insert the MusicRecCard so the randomized recommendation is visible here */}
-    <div className="w-full flex justify-center mt-3">
-      <MusicRecCard />
-    </div>
-
-  </div>
-</div>
+        <div className="mt-12 flex flex-col justify-center h-auto w-auto items-center ">
+              <ServerStatusCard />
+          <div className=" flex flex-col w-full justify-between items-center p-2 text-xs font-mono text-white font-[500] rounded-xl backdrop-blur-xs shadow-lg ring-2 ring-black ">
+            <h6>Randomized Music Rec</h6>
+            <div className="w-full flex justify-center mt-3">
+              <MusicRecCard />
+            </div>
+          </div>
+        </div>
       </div>
     </header>
   );
