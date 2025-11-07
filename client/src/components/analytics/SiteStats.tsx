@@ -55,24 +55,24 @@ export default function StatsDashboard() {
   const short = (s: string, n = 28) => (s?.length > n ? s.slice(0, n - 1) + "…" : s);
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-20 ">
+    <div className="w-full max-w-6xl mx-auto pt-15 px-3 sm:px-4">
       <h1 className="flex justify-center text-4xl font-bold text-[#fdd262] font-arvo mb-5">Site Analytics</h1>
 
       {/* Summary cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 ">
-        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] ">
+        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] border-1 border-black">
           <CardContent className="p-4">
             <div className="text-md  opacity-70 text-white font-arvo">Total visits (last {summary?.sinceDays ?? days} days)</div>
             <div className="text-3xl font-semibold text-white">{summary?.totalVisits ?? "—"}</div>
           </CardContent>
         </BasicCard>
-        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)]">
+        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] border-1 border-black">
           <CardContent className="p-4">
             <div className="text-md opacity-70 text-white font-arvo">Unique visitors</div>
             <div className="text-3xl font-semibold text-white">{summary?.uniqueVisitors ?? "—"}</div>
           </CardContent>
         </BasicCard>
-        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)]">
+        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] border-1 border-black">
           <CardContent className="p-4">
             <div className="text-md opacity-70 text-white font-arvo">Countries</div>
             <div className="text-3xl font-semibold text-white">{summary?.countries ?? "—"}</div>
@@ -81,20 +81,20 @@ export default function StatsDashboard() {
       </div>
 
       {/* Controls */}
-      <div className="flex flex-wrap items-center gap-3 bg-[rgb(35,39,47)] w-60 justify-center mt-5 rounded-t-lg shadow-lg">
+      <div className="flex flex-wrap items-center gap-3 bg-[rgb(35,39,47)] py-3 w-60 justify-center mt-5 rounded-t-lg shadow-lg border-t-1 border-l-1 border-r-1 border-black translate-x-8">
         <label className="text-sm text-white">Days: 
           <select className="ml-2 border rounded px-2 py-1 border-white" value={days} onChange={e => setDays(Number(e.target.value))}>
-            <option value={7}>7</option>
-            <option value={14}>14</option>
-            <option value={30}>30</option>
-            <option value={90}>90</option>
+            <option className="text-black" value={7}>7</option>
+            <option className="text-black" value={14}>14</option>
+            <option className="text-black" value={30}>30</option>
+            <option className="text-black" value={90}>90</option>
           </select>
         </label>
         <label className="text-sm text-white">Top limit: 
           <select className="ml-2 border rounded px-2 py-1 border-white" value={limit} onChange={e => setLimit(Number(e.target.value))}>
-            <option value={5}>5</option>
-            <option value={10}>10</option>
-            <option value={15}>15</option>
+            <option className="text-black" value={5}>5</option>
+            <option className="text-black" value={10}>10</option>
+            <option className="text-black" value={15}>15</option>
           </select>
         </label>
         {loading && <span className="text-sm">Loading…</span>}
@@ -102,13 +102,13 @@ export default function StatsDashboard() {
       </div>
 
       {/* Traffic over time */}
-      <div className="bg-[rgb(35,39,47)] shadow-xl">
+      <div>
 
       
-      <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)]">
+      <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] mb-5 border-1 border-black z-50">
         <CardContent className="p-4">
-          <div className="text-lg font-xl mb-2 text-white">Visits per day</div>
-            <div className="h-64 w-full">
+          <div className=" text-lg font-xl mb-2  text-white font-arvo">Visits per day</div>
+            <div className="h-64 w-[95%] sm:w-full mx-auto">
             <ResponsiveContainer width="100%" height="100%">
               <LineChart data={traffic} margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -123,16 +123,16 @@ export default function StatsDashboard() {
       </BasicCard>
 
       {/* Top pages & referrers */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)]">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
+        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] border-1 border-black">
           <CardContent className="p-4">
-            <div className="text-lg font-medium mb-2 text-white">Top pages</div>
-            <div className="h-64 w-full">
+            <div className=" text-lg font-medium mb-2 text-white font-arvo">Top pages</div>
+            <div className="h-64 w-[95%] sm:w-full mx-auto">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={topPagesFmt} layout="vertical" margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis type="number" allowDecimals={false} />
-                  <YAxis type="category" dataKey="path" width={140} tick={{ fontSize: 12, fill: "#ffffff" }} tickFormatter={(v: string) => short(v, 24)} />
+                  <YAxis type="category" dataKey="path" width={100} tick={{ fontSize: 12, fill: "#ffffff" }} tickFormatter={(v: string) => short(v, 24)} />
                   <Tooltip />
                   <Bar dataKey="hits">
                     {topPagesFmt.map((entry, index) => (
@@ -148,15 +148,15 @@ export default function StatsDashboard() {
           </CardContent>
         </BasicCard>
 
-        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)]">
+        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] border-1 border-black">
           <CardContent className="p-4">
-            <div className="text-lg font-medium mb-2 text-white">Top referrers</div>
-            <div className="h-64 w-full">
+            <div className=" text-lg font-medium mb-2 text-white font-arvo">Top referrers</div>
+            <div className="h-64 w-[95%] sm:w-full mx-auto">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={topRefsFmt} layout="vertical" margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
                   <CartesianGrid strokeDasharray="3 3" />
                   <XAxis type="number" allowDecimals={false} />
-                  <YAxis type="category" dataKey="domain" width={150} tick={{ fontSize: 12, fill: "#ffffff" }} tickFormatter={(v: string) => short(v, 26)} />
+                  <YAxis type="category" dataKey="domain" width={100} tick={{ fontSize: 12, fill: "#ffffff" }} tickFormatter={(v: string) => short(v, 26)} />
                   <Tooltip />
                   <Bar dataKey="hits">
                     {topPagesFmt.map((entry, index) => (
@@ -174,9 +174,9 @@ export default function StatsDashboard() {
       </div>
 
       {/* Recent visits table */}
-      <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)]">
+      <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] mt-5 mh-2 border-1 border-black">
         <CardContent className="p-4">
-          <div className="text-lg font-medium mb-2 text-white">Recent visits</div>
+          <div className="text-lg font-medium mb-2 text-white font-arvo">Recent visits</div>
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>

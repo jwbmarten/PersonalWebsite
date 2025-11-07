@@ -86,7 +86,7 @@ export default function NavBar(): JSX.Element {
                         <NavText href='/stats' text='Stats' />
                     </li>
                     <li className='px-1 lg:px-4'>
-                        <NavText href='/games' text='Projects' />
+                        <NavText href='/projects' text='Projects' />
                     </li>
                     <li className='px-1 lg:px-4'>
                         <NavText href='/games' text='Contact' />

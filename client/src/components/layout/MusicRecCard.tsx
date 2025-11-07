@@ -1,4 +1,6 @@
 import { JSX, useEffect, useState } from "react";
+import SpotifyIcon from "../../assets/spotify_icon.png";
+import YoutubeIcon from "../../assets/youtube_icon.png";
 
 type SongRec = {
     title?: string | null;
@@ -56,7 +58,7 @@ export default function MusicRecCard(): JSX.Element {
     const artSrc = song?.art_url || '';
 
     return (
-        <div className="flex w-full max-w-3xl items-center m-6 p-3 text-sm text-white rounded-xl backdrop-blur-sm shadow-lg ring-2 ring-gray-900 bg-white/5">
+        <div className="flex w-auto max-w-3xl items-center m-6 p-3 text-sm text-white rounded-xl backdrop-blur-sm shadow-lg ring-2 ring-gray-900 bg-white/5">
             {/* Left: artwork */}
             <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 mr-3 rounded-md overflow-hidden bg-gray-800 flex items-center justify-center">
                 {artSrc ? (
@@ -69,8 +71,8 @@ export default function MusicRecCard(): JSX.Element {
             </div>
 
             {/* Right: info */}
-            <div className="flex-1 flex flex-col justify-center">
-                <div className="flex items-baseline justify-between">
+            <div className="flex-1 flex flex-col">
+                <div className="flex items-baseline justify-items-start">
                     <div>
                         <div className="text-base font-semibold leading-tight">{song?.title ?? 'Unknown Title'}</div>
                         <div className="text-sm text-gray-300">{song?.artist ?? 'Unknown Artist'}</div>
@@ -78,22 +80,41 @@ export default function MusicRecCard(): JSX.Element {
                     </div>
                 </div>
 
-                <div className="mt-2 flex flex-col items-center justify-between">
-                    <div className="flex items-center gap-3">
-                        {song?.spotify_url && (
-                            <a href={song.spotify_url} target="_blank" rel="noopener noreferrer" className="text-xs px-2 py-1 bg-green-600/80 rounded text-white">Spotify</a>
-                        )}
-                        {song?.youtube_url && (
-                            <a href={song.youtube_url} target="_blank" rel="noopener noreferrer" className="text-xs px-2 py-1 bg-red-600/80 rounded text-white">YouTube</a>
-                        )}
-                    </div>
+                <div className="mt-2 flex flex-colspace-between  ">
+                                        <div className="flex items-center gap-3">
+                                                {song?.spotify_url && (
+                                                        <a
+                                                            href={song.spotify_url}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            aria-label="Open on Spotify"
+                                                            className="inline-flex items-center justify-center w-8 h-8 hover:scale-105 transition-transform"
+                                                        >
+                                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                            <img src={SpotifyIcon} alt="Spotify" className="w-8 h-8 object-contain" />
+                                                        </a>
+                                                )}
+                                                {song?.youtube_url && (
+                                                        <a
+                                                            href={song.youtube_url}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            aria-label="Open on YouTube"
+                                                            className="inline-flex items-center justify-center w-8 h-8 hover:scale-105 transition-transform"
+                                                        >
+                                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                            <img src={YoutubeIcon} alt="YouTube" className="w-8 h-8 object-contain" />
+                                                        </a>
+                                                )}
                         <button
                             type="button"
                             onClick={() => setRefresh((r) => r + 1)}
-                            className="ml-3 text-xs px-3 py-1 rounded bg-[#fdd262] text-black font-medium hover:bg-[#fdd262]/90 transition"
+                            className=" text-xs py-1 px-3 w-auto rounded bg-[#fdd262] text-black font-bold hover:bg-[#fdd262]/90 transition"
                         >
-                            New recommendation
-                        </button>
+                            Next rec
+                        </button>                                                       
+                                        </div>
+                 
                 </div>
 
                 {error && <div className="mt-2 text-xs text-red-400">Error: {error}</div>}

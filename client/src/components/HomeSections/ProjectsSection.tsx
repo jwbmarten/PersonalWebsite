@@ -3,10 +3,12 @@ import ProjectCard from "../layout/ProjectCard";
 import projects from "../../data/projects";
 
 export default function ProjectsSection(): JSX.Element {
+  const featured = projects.filter(p => p.featured);
+
   return (
     <div>
       <div className="w-full flex flex-col lg:flex-row items-center">
-        {projects.map((p) => (
+        {featured.map((p) => (
           <div key={p.id} className="w-full flex justify-center max-w-[1400px] py-6 lg:py-10 rounded-lg  gap-6 ">
             <div className="flex justify-center w-full max-w-[1400px] px-6">
               <ProjectCard

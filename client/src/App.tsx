@@ -4,6 +4,7 @@ import './App.css'
 import Home from "./components/pages/Home"
 import AnalyticsPing from "./components/analytics/AnalyticsPing";
 import Stats from "./components/pages/Stats";
+import Projects from "./components/pages/Projects";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/stats" element={<Stats/>} />
+        <Route path="/projects" element={<Projects/>} />
       </Routes>
     </>
   )

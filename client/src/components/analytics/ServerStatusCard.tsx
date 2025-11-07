@@ -53,7 +53,7 @@ export default function ServerStatusCard(): JSX.Element {
   }, []);
   
     return (
-    <div className=" flex flex-col w-full justify-between items-center m-10 p-2 text-xs font-mono text-white font-[500] rounded-xl backdrop-blur-xs shadow-lg ring-2 ring-black ">
+    <div className=" flex flex-col w-full lg:w-auto justify-between items-center m-10 p-2 text-xs font-mono text-white font-[500] rounded-xl backdrop-blur-xs shadow-lg ring-2 ring-black ">
         <span>
         Spring Server Status:{" "}
         <span

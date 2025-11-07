@@ -140,15 +140,15 @@ export default function HeroSection(): JSX.Element {
         <p className="text-white sm:text-center xs:text-center w-11/12 sm:w-3/4 md:w-2/3">Hi, welcome to my personal website! This site is self-hosted on a Raspberry Pi, read more about it here! </p>
 
         {/* Lower banner */}
-        <div className="mt-12 flex flex-col justify-center h-auto w-auto items-center ">
+
               <ServerStatusCard />
-          <div className=" flex flex-col w-full justify-between items-center p-2 text-xs font-mono text-white font-[500] rounded-xl backdrop-blur-xs shadow-lg ring-2 ring-black ">
-            <h6>Randomized Music Rec</h6>
-            <div className="w-full flex justify-center mt-3">
+          <div className=" flex flex-col w-auto justify-between items-center p-2 text-xs font-mono text-white font-[500] rounded-xl backdrop-blur-xs shadow-lg ring-2 ring-black ">
+            <div className="text-lg font-arvo text-[#fdd262]">Rec Randomizer</div>
+            <div className="w-full flex justify-center">
               <MusicRecCard />
             </div>
           </div>
-        </div>
+
       </div>
     </header>
   );
