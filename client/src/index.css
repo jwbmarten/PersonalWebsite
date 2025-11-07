@@ -109,3 +109,23 @@ a:hover {
   width: 0;
   animation: typing 3s steps(30, end) forwards;
 }
+
+/* Marquee with start/end holds for overflowing single-line text */
+.marquee { overflow: hidden; white-space: nowrap; min-width: 0; }
+.marquee__inner {
+  display: inline-block;
+  will-change: transform;
+  animation-name: marquee-hold;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+/* Pause on hover for readability */
+.marquee:hover .marquee__inner { animation-play-state: paused; }
+
+@keyframes marquee-hold {
+  0% { transform: translateX(0); }
+  15% { transform: translateX(0); } /* hold at start */
+  85% { transform: translateX(calc(var(--delta, 0px) * -1)); } /* end position */
+  100% { transform: translateX(calc(var(--delta, 0px) * -1)); } /* hold at end */
+}

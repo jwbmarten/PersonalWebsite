@@ -1,6 +1,7 @@
 import { JSX, useEffect, useState } from "react";
 import SpotifyIcon from "../../assets/spotify_icon.png";
 import YoutubeIcon from "../../assets/youtube_icon.png";
+import TextMarquee from "./TextMarquee";
 
 type SongRec = {
     title?: string | null;
@@ -71,12 +72,12 @@ export default function MusicRecCard(): JSX.Element {
             </div>
 
             {/* Right: info */}
-            <div className="flex-1 flex flex-col">
-                <div className="flex items-baseline justify-items-start">
-                    <div>
-                        <div className="text-base font-semibold leading-tight">{song?.title ?? 'Unknown Title'}</div>
-                        <div className="text-sm text-gray-300">{song?.artist ?? 'Unknown Artist'}</div>
-                        <div className="text-sm text-gray-300">{song?.album ?? 'Unknown Album'}</div>
+            <div className="flex-1 flex flex-col min-w-0">
+                <div className="flex items-baseline justify-items-start w-full">
+                    <div className="min-w-0 w-full">
+                        <TextMarquee className="text-base font-semibold leading-tight" text={song?.title ?? 'Unknown Title'} />
+                        <TextMarquee className="text-sm text-gray-300" text={song?.artist ?? 'Unknown Artist'} />
+                        <TextMarquee className="text-sm text-gray-300" text={song?.album ?? 'Unknown Album'} />
                     </div>
                 </div>
 
