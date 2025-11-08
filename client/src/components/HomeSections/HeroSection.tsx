@@ -1,6 +1,7 @@
 import { JSX, useEffect, useRef } from "react";
 import ServerStatusCard from "../analytics/ServerStatusCard";
 import MusicRecCard from "../layout/MusicRecCard";
+import MovieRecCard from "../layout/MovieRecCard";
 
 
 export default function HeroSection(): JSX.Element {
@@ -142,8 +143,11 @@ export default function HeroSection(): JSX.Element {
         {/* Lower banner */}
 
               <ServerStatusCard />
-          <div className=" flex flex-col w-auto justify-between items-center p-2 text-xs font-mono text-white font-[500] rounded-xl backdrop-blur-xs shadow-lg ring-2 ring-black ">
-            <div className="text-lg font-arvo text-[#fdd262]">Rec Randomizer</div>
+          <div className="w-full max-w-[95vw] sm:max-w-[600px] md:max-w-[600px] mx-auto flex flex-col items-center p-3 text-xs font-mono text-white font-[500] rounded-xl backdrop-blur-xs shadow-lg ring-2 ring-black overflow-hidden">
+            <div className="text-lg font-arvo text-[#fdd262] mb-2">Rec Randomizer</div>
+            <div className="w-full flex justify-center">
+              <MovieRecCard />
+            </div>
             <div className="w-full flex justify-center">
               <MusicRecCard />
             </div>

@@ -140,7 +140,7 @@ export default function NavBar(): JSX.Element {
                                         <NavLink to='/stats' onClick={() => setOpen(false)} className='block px-5 py-3 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Stats</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/games' onClick={() => setOpen(false)} className='block px-5 py-3 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Projects</NavLink>
+                                        <NavLink to='/projects' onClick={() => setOpen(false)} className='block px-5 py-3 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Projects</NavLink>
                                     </li>
                                     <li>
                                         <NavLink to='/games' onClick={() => setOpen(false)} className='block px-5 py-3 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Contact</NavLink>

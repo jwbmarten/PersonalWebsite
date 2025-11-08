@@ -59,7 +59,7 @@ export default function MusicRecCard(): JSX.Element {
     const artSrc = song?.art_url || '';
 
     return (
-        <div className="flex w-auto max-w-3xl items-center m-6 p-3 text-sm text-white rounded-xl backdrop-blur-sm shadow-lg ring-2 ring-gray-900 bg-white/5">
+    <div className="flex w-full max-w-3xl items-center m-6 p-3 text-sm text-white rounded-xl backdrop-blur-sm shadow-lg ring-2 ring-gray-900 bg-white/5">
             {/* Left: artwork */}
             <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 mr-3 rounded-md overflow-hidden bg-gray-800 flex items-center justify-center">
                 {artSrc ? (
@@ -81,8 +81,8 @@ export default function MusicRecCard(): JSX.Element {
                     </div>
                 </div>
 
-                <div className="mt-2 flex flex-colspace-between  ">
-                                        <div className="flex items-center gap-3">
+                                <div className="mt-2">
+                                    <div className="flex items-center gap-3 whitespace-nowrap">
                                                 {song?.spotify_url && (
                                                         <a
                                                             href={song.spotify_url}
@@ -107,16 +107,15 @@ export default function MusicRecCard(): JSX.Element {
                                                             <img src={YoutubeIcon} alt="YouTube" className="w-8 h-8 object-contain" />
                                                         </a>
                                                 )}
-                        <button
-                            type="button"
-                            onClick={() => setRefresh((r) => r + 1)}
-                            className=" text-xs py-1 px-3 w-auto rounded bg-[#fdd262] text-black font-bold hover:bg-[#fdd262]/90 transition"
-                        >
-                            Next rec
-                        </button>                                                       
-                                        </div>
-                 
-                </div>
+                                        <button
+                                            type="button"
+                                            onClick={() => setRefresh((r) => r + 1)}
+                                            className="text-xs py-1 px-3 w-auto rounded bg-[#fdd262] text-black font-bold hover:bg-[#fdd262]/90 transition"
+                                        >
+                                            Next rec
+                                        </button>
+                                    </div>
+                                </div>
 
                 {error && <div className="mt-2 text-xs text-red-400">Error: {error}</div>}
             </div>
