@@ -1,10 +1,23 @@
 import { JSX, useEffect, useState } from "react";
 import { pingApi } from "../../lib/api";
 
-export default function ServerStatusCard(): JSX.Element {
+interface ServerStatusCardProps {
+  uptimeDays?: number | null;
+  uptimeHours?: number | null;
+  uptimeMinutes?: number | null;
+  externalRefresh?: boolean;
+}
+
+export default function ServerStatusCard({
+  uptimeDays: externalUptimeDays,
+  uptimeHours: externalUptimeHours,
+  uptimeMinutes: externalUptimeMinutes,
+  externalRefresh = false,
+}: ServerStatusCardProps): JSX.Element {
   const [status, setStatus] = useState<"ONLINE" | "DOWN">("DOWN");
-  const [uptimeDays, setUptimeDays] = useState<number | null>(null);
-  const [uptimeHours, setUptimeHours] = useState<number | null>(null);
+  const [uptimeDays, setUptimeDays] = useState<number | null>(externalUptimeDays ?? null);
+  const [uptimeHours, setUptimeHours] = useState<number | null>(externalUptimeHours ?? null);
+  const [uptimeMinutes, setUptimeMinutes] = useState<number | null>(externalUptimeMinutes ?? null);
 
   useEffect(() => {
     let cancelled = false;
@@ -20,9 +33,16 @@ export default function ServerStatusCard(): JSX.Element {
     return () => { cancelled = true; clearInterval(id); };
   }, []);
 
-  const isOk = String(status).toUpperCase() === "ONLINE";
-
+  // Only fetch uptime if not receiving it as a prop
   useEffect(() => {
+    // If uptime data is provided externally, don't fetch
+    if (externalRefresh && externalUptimeDays !== undefined) {
+      setUptimeDays(externalUptimeDays ?? null);
+      setUptimeHours(externalUptimeHours ?? null);
+      setUptimeMinutes(externalUptimeMinutes ?? null);
+      return;
+    }
+
     let cancelled = false;
 
     async function getUptime() {
@@ -33,6 +53,7 @@ export default function ServerStatusCard(): JSX.Element {
         if (!cancelled) {
           setUptimeDays(data.uptimeDays);
           setUptimeHours(data.uptimeHours);
+          setUptimeMinutes(data.uptimeMinutes ?? 0);
         }
       } catch (err) {
         console.error("Uptime fetch failed", err);
@@ -40,15 +61,15 @@ export default function ServerStatusCard(): JSX.Element {
     }
 
     getUptime();
-    const id = setInterval(getUptime, 60_000);
+    const id = setInterval(getUptime, 30_000);
 
     return () => {
       cancelled = true;
       clearInterval(id);
     };
-  }, []);
+  }, [externalRefresh, externalUptimeDays, externalUptimeHours, externalUptimeMinutes]);
 
-  const uptimeMinutes = 0;
+  const isOk = String(status).toUpperCase() === "ONLINE";
 
   return (
     <div className="w-full px-6 py-2 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
@@ -68,7 +89,7 @@ export default function ServerStatusCard(): JSX.Element {
             {status}
           </p>
           <p className="text-xs text-gray-300 font-mono">
-            Uptime: {uptimeDays} days, {uptimeHours} hours, {uptimeMinutes} mins
+            Uptime: {uptimeDays ?? "—"} days, {uptimeHours ?? "—"} hours, {uptimeMinutes ?? "—"} mins
           </p>
         </div>
       </div>

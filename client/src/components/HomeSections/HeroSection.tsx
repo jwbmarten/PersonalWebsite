@@ -36,10 +36,15 @@ export default function HeroSection(): JSX.Element {
           </div>
 
           {/* Right Column */}
-          <div className="flex flex-col items-center w-full lg:w-1/3 gap-6">
-            <div className="w-full lg:max-w-none flex flex-col gap-4 items-center">
+          <div className="flex flex-col items-center w-full lg:w-1/3 md:max-w-2xl gap-6">
+            {/* Server Status and Ping Cards - Horizontal on medium, vertical on large */}
+            <div className="w-full flex flex-col md:flex-row lg:flex-col gap-4 justify-center items-center">
               <ServerStatusCard />
               <ServerPingCard />
+            </div>
+            
+            {/* Music Rec Card - Below, Centered */}
+            <div className="w-full md:w-1/2 lg:w-full flex justify-center">
               <MusicRecCard />
             </div>
           </div>

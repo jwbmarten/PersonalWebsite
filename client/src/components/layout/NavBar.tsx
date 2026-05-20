@@ -89,6 +89,9 @@ export default function NavBar(): JSX.Element {
                         <NavText href='/projects' text='Projects' />
                     </li>
                     <li className='px-1 lg:px-4'>
+                        <NavText href='/status' text='Status' />
+                    </li>
+                    <li className='px-1 lg:px-4'>
                         <NavText href='/games' text='Contact' />
                     </li>
                 </ul>
@@ -141,6 +144,9 @@ export default function NavBar(): JSX.Element {
                                     </li>
                                     <li>
                                         <NavLink to='/projects' onClick={() => setOpen(false)} className='block px-5 py-3 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Projects</NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink to='/status' onClick={() => setOpen(false)} className='block px-5 py-3 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Status</NavLink>
                                     </li>
                                     <li>
                                         <NavLink to='/games' onClick={() => setOpen(false)} className='block px-5 py-3 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Contact</NavLink>

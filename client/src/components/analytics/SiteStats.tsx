@@ -51,7 +51,7 @@ export default function StatsDashboard() {
   const topPagesFmt = useMemo(() => topPages.filter(d => !d.path?.startsWith('/music_art')).map(d => ({ ...d, path: d.path || "/" })), [topPages]);
   const topRefsFmt = useMemo(() => topRefs.map(d => ({ ...d, domain: d.domain || "(direct / none)" })), [topRefs]);
 
-  const barColors = ["#f97373", "#60a5fa", "#D7AC80", "#ABBE86", "#9F8DBD", "#fdd262" ];
+  const barColors = ["#bb4957", "#60a5fa", "#D7AC80", "#ABBE86", "#9F8DBD", "#fdd262" ];
   const short = (s: string, n = 28) => (s?.length > n ? s.slice(0, n - 1) + "…" : s);
   
   const formatDateLabel = (dateStr: string) => {
@@ -67,35 +67,49 @@ export default function StatsDashboard() {
 
   return (
     <div className="w-full max-w-6xl mx-auto pt-15 px-3 sm:px-6 lg:px-4">
-      <h1 className="flex justify-center text-4xl font-bold text-[#fdd262] font-arvo mb-5">Site Analytics</h1>
+      {/* Header */}
+      <div className="w-full mx-auto max-w-[1200px] px-6 mb-8 text-center">
+        <h1 className="text-4xl lg:text-5xl font-spartan font-bold text-[#fdd262] mb-2">
+          Site Analytics
+        </h1>
+        <p className="text-sm text-gray-400">
+          Website traffic and visitor insights
+        </p>
+      </div>
 
       {/* Summary cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 ">
         <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
-          <CardContent className="p-4">
-            <div className="flex items-start gap-3 mb-2">
-              <img src="/icons/totalVisits.svg" alt="Total visits" className="w-6 h-6 flex-shrink-0 mt-0.5" />
-              <div className="text-md opacity-70 text-white font-arvo">Total visits (last {summary?.sinceDays ?? days} days)</div>
+          <CardContent className="p-4 flex items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-yellow-500/20 flex items-center justify-center flex-shrink-0">
+              <img src="/icons/totalVisits.svg" alt="Total visits" className="w-8 h-8" />
             </div>
-            <div className="text-3xl font-semibold text-white">{summary?.totalVisits ?? "—"}</div>
+            <div className="flex-1">
+              <div className="text-sm opacity-70 text-gray-300 font-arvo">Total visits (last {summary?.sinceDays ?? days} days)</div>
+              <div className="text-3xl font-semibold text-white">{summary?.totalVisits ?? "—"}</div>
+            </div>
           </CardContent>
         </BasicCard>
         <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
-          <CardContent className="p-4">
-            <div className="flex items-start gap-3 mb-2">
-              <img src="/icons/unique.svg" alt="Unique visitors" className="w-6 h-6 flex-shrink-0 mt-0.5" />
-              <div className="text-md opacity-70 text-white font-arvo">Unique visitors</div>
+          <CardContent className="p-4 flex items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+              <img src="/icons/unique.svg" alt="Unique visitors" className="w-8 h-8" />
             </div>
-            <div className="text-3xl font-semibold text-white">{summary?.uniqueVisitors ?? "—"}</div>
+            <div className="flex-1">
+              <div className="text-sm opacity-70 text-gray-300 font-arvo">Unique visitors</div>
+              <div className="text-3xl font-semibold text-white">{summary?.uniqueVisitors ?? "—"}</div>
+            </div>
           </CardContent>
         </BasicCard>
         <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
-          <CardContent className="p-4">
-            <div className="flex items-start gap-3 mb-2">
-              <img src="/icons/countries.svg" alt="Countries" className="w-6 h-6 flex-shrink-0 mt-0.5" />
-              <div className="text-md opacity-70 text-white font-arvo">Countries</div>
+          <CardContent className="p-4 flex items-center gap-4">
+            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+              <img src="/icons/countries.svg" alt="Countries" className="w-8 h-8" />
             </div>
-            <div className="text-3xl font-semibold text-white">{summary?.countries ?? "—"}</div>
+            <div className="flex-1">
+              <div className="text-sm opacity-70 text-gray-300 font-arvo">Countries</div>
+              <div className="text-3xl font-semibold text-white">{summary?.countries ?? "—"}</div>
+            </div>
           </CardContent>
         </BasicCard>
       </div>
@@ -133,7 +147,7 @@ export default function StatsDashboard() {
                 <XAxis dataKey="date" tick={{ fontSize: 12 }} tickFormatter={formatDateLabel} />
                 <YAxis allowDecimals={false} tick={{ fontSize: 12 }} />
                 <Tooltip />
-                <Area type="monotone" dataKey="visits" fill="#fdd262" stroke="#fdd262" strokeWidth={2} />
+                <Area type="monotone" dataKey="visits" fill="#8d64d3" stroke="#8d64d3" strokeWidth={2} />
               </AreaChart>
             </ResponsiveContainer>
           </div>

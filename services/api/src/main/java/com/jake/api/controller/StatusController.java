@@ -17,9 +17,11 @@ public class StatusController {
     Duration d = Duration.ofMillis(uptimeMs);
     long days = d.toDays();
     long hours = d.minusDays(days).toHours();
+    long minutes = d.minusDays(days).minusHours(hours).toMinutes();
     return Map.of(
       "uptimeDays", days,
-      "uptimeHours", hours
+      "uptimeHours", hours,
+      "uptimeMinutes", minutes
     );
   }
 

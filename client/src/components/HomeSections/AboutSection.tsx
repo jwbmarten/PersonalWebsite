@@ -44,26 +44,31 @@ export default function AboutSection(): JSX.Element {
                 />
               </div>
 
-              {/* Education */}
-              <div className="flex gap-3 mb-6 items-start">
-                <img src="/icons/school.svg" alt="Education" className="w-8 h-8 flex-shrink-0 mt-0.5" />
+              {/* Education and Work - Centered Container */}
+              <div className="flex justify-center">
                 <div>
-                  <p className="text-white font-semibold text-sm pt-1">M.S. in Computer Science</p>
-                  <p className="text-gray-400 text-xs">University of Pennsylvania</p>
-                  <p className="text-white font-semibold text-sm pt-3">M.S. in Geoscience</p>
-                  <p className="text-gray-400 text-xs">Penn State University</p>
-                  <p className="text-white font-semibold text-sm pt-3">B.S. in Geoscience</p>
-                  <p className="text-gray-400 text-xs">Penn State University</p>
-                </div>
-              </div>
+                  {/* Education */}
+                  <div className="flex gap-3 mb-6 items-start">
+                    <img src="/icons/school.svg" alt="Education" className="w-8 h-8 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-white font-semibold text-sm pt-1">M.S. in Computer Science</p>
+                      <p className="text-gray-400 text-xs">University of Pennsylvania</p>
+                      <p className="text-white font-semibold text-sm pt-3">M.S. in Geoscience</p>
+                      <p className="text-gray-400 text-xs">Penn State University</p>
+                      <p className="text-white font-semibold text-sm pt-3">B.S. in Geoscience</p>
+                      <p className="text-gray-400 text-xs">Penn State University</p>
+                    </div>
+                  </div>
 
-              {/* Location */}
-              <div className="flex gap-3 mb-6 items-start">
-                <img src="/icons/work.svg" alt="Location" className="w-8 h-8 flex-shrink-0 mt-0.5" />
-                <div>
-                  <p className="text-white font-semibold text-sm pt-1">ExxonMobil Exploration Company</p>
-                <p className="text-gray-400 text-xs">Global New Opportunity Generation</p>
-                <p className="text-gray-400 text-xs">West Africa New Opportunities</p>
+                  {/* Location */}
+                  <div className="flex gap-3 mb-6 items-start">
+                    <img src="/icons/work.svg" alt="Location" className="w-8 h-8 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-white font-semibold text-sm pt-1">ExxonMobil Exploration Company</p>
+                    <p className="text-gray-400 text-xs">Global New Opportunity Generation</p>
+                    <p className="text-gray-400 text-xs">West Africa New Opportunities</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
