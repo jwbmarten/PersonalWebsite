@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { BasicCard, CardContent } from "../layout/BasicCard"
-import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianGrid, BarChart, Bar, Cell } from "recharts";
+import { ResponsiveContainer, AreaChart, Area, XAxis, YAxis, Tooltip, CartesianGrid, BarChart, Bar, Cell } from "recharts";
 
 // --- Types matching backend responses ---
 interface Summary {
@@ -29,7 +29,7 @@ export default function StatsDashboard() {
   const [topRefs, setTopRefs] = useState<TopRef[]>([]);
   const [recent, setRecent] = useState<RecentVisit[]>([]);
   const [days, setDays] = useState(14);
-  const [limit, setLimit] = useState(10);
+  const limit = 10;
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -46,55 +46,70 @@ export default function StatsDashboard() {
       .catch(e => { if (!alive) return; setError(e.message || String(e)); })
       .finally(() => { if (!alive) return; setLoading(false); });
     return () => { alive = false };
-  }, [days, limit]);
+  }, [days]);
 
-  const topPagesFmt = useMemo(() => topPages.map(d => ({ ...d, path: d.path || "/" })), [topPages]);
+  const topPagesFmt = useMemo(() => topPages.filter(d => !d.path?.startsWith('/music_art')).map(d => ({ ...d, path: d.path || "/" })), [topPages]);
   const topRefsFmt = useMemo(() => topRefs.map(d => ({ ...d, domain: d.domain || "(direct / none)" })), [topRefs]);
 
   const barColors = ["#f97373", "#60a5fa", "#D7AC80", "#ABBE86", "#9F8DBD", "#fdd262" ];
   const short = (s: string, n = 28) => (s?.length > n ? s.slice(0, n - 1) + "…" : s);
+  
+  const formatDateLabel = (dateStr: string) => {
+    try {
+      const date = new Date(dateStr + "T00:00:00Z");
+      const month = date.toLocaleString("en-US", { month: "short" });
+      const day = date.getDate();
+      return `${month} ${day}`;
+    } catch {
+      return dateStr;
+    }
+  };
 
   return (
-    <div className="w-full max-w-6xl mx-auto pt-15 px-3 sm:px-4">
+    <div className="w-full max-w-6xl mx-auto pt-15 px-3 sm:px-6 lg:px-4">
       <h1 className="flex justify-center text-4xl font-bold text-[#fdd262] font-arvo mb-5">Site Analytics</h1>
 
       {/* Summary cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 ">
-        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] border-1 border-black">
+        <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
           <CardContent className="p-4">
-            <div className="text-md  opacity-70 text-white font-arvo">Total visits (last {summary?.sinceDays ?? days} days)</div>
+            <div className="flex items-start gap-3 mb-2">
+              <img src="/icons/totalVisits.svg" alt="Total visits" className="w-6 h-6 flex-shrink-0 mt-0.5" />
+              <div className="text-md opacity-70 text-white font-arvo">Total visits (last {summary?.sinceDays ?? days} days)</div>
+            </div>
             <div className="text-3xl font-semibold text-white">{summary?.totalVisits ?? "—"}</div>
           </CardContent>
         </BasicCard>
-        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] border-1 border-black">
+        <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
           <CardContent className="p-4">
-            <div className="text-md opacity-70 text-white font-arvo">Unique visitors</div>
+            <div className="flex items-start gap-3 mb-2">
+              <img src="/icons/unique.svg" alt="Unique visitors" className="w-6 h-6 flex-shrink-0 mt-0.5" />
+              <div className="text-md opacity-70 text-white font-arvo">Unique visitors</div>
+            </div>
             <div className="text-3xl font-semibold text-white">{summary?.uniqueVisitors ?? "—"}</div>
           </CardContent>
         </BasicCard>
-        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] border-1 border-black">
+        <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
           <CardContent className="p-4">
-            <div className="text-md opacity-70 text-white font-arvo">Countries</div>
+            <div className="flex items-start gap-3 mb-2">
+              <img src="/icons/countries.svg" alt="Countries" className="w-6 h-6 flex-shrink-0 mt-0.5" />
+              <div className="text-md opacity-70 text-white font-arvo">Countries</div>
+            </div>
             <div className="text-3xl font-semibold text-white">{summary?.countries ?? "—"}</div>
           </CardContent>
         </BasicCard>
       </div>
 
       {/* Controls */}
-      <div className="flex flex-wrap items-center gap-3 bg-[rgb(35,39,47)] py-3 w-60 justify-center mt-5 rounded-t-lg shadow-lg border-t-1 border-l-1 border-r-1 border-black translate-x-8">
-        <label className="text-sm text-white">Days: 
+      <div className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10 py-4 px-4 w-fit mt-8 mb-6">
+        <label className="text-sm text-white flex items-center gap-2">
+          <img src="/icons/calendar.svg" alt="Calendar" className="w-4 h-4" />
+          Days: 
           <select className="ml-2 border rounded px-2 py-1 border-white" value={days} onChange={e => setDays(Number(e.target.value))}>
             <option className="text-black" value={7}>7</option>
             <option className="text-black" value={14}>14</option>
             <option className="text-black" value={30}>30</option>
             <option className="text-black" value={90}>90</option>
-          </select>
-        </label>
-        <label className="text-sm text-white">Top limit: 
-          <select className="ml-2 border rounded px-2 py-1 border-white" value={limit} onChange={e => setLimit(Number(e.target.value))}>
-            <option className="text-black" value={5}>5</option>
-            <option className="text-black" value={10}>10</option>
-            <option className="text-black" value={15}>15</option>
           </select>
         </label>
         {loading && <span className="text-sm">Loading…</span>}
@@ -105,18 +120,21 @@ export default function StatsDashboard() {
       <div>
 
       
-      <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] mb-5 border-1 border-black z-50">
+      <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10 mb-5">
         <CardContent className="p-4">
-          <div className=" text-lg font-xl mb-2  text-white font-arvo">Visits per day</div>
-            <div className="h-64 w-[95%] sm:w-full mx-auto">
+          <div className="flex items-center gap-3 mb-2">
+            <img src="/icons/visits.svg" alt="Visits" className="w-8 h-8 opacity-70 flex-shrink-0" />
+            <div className=" text-lg font-xl text-white font-arvo">Visits per day</div>
+          </div>
+          <div className="h-64 w-full mx-auto">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={traffic} margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
+              <AreaChart data={traffic} margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
                 <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" tick={{ fontSize: 12 }} />
+                <XAxis dataKey="date" tick={{ fontSize: 12 }} tickFormatter={formatDateLabel} />
                 <YAxis allowDecimals={false} tick={{ fontSize: 12 }} />
                 <Tooltip />
-                <Line type="monotone" dataKey="visits" dot={false} strokeWidth={2} />
-              </LineChart>
+                <Area type="monotone" dataKey="visits" fill="#fdd262" stroke="#fdd262" strokeWidth={2} />
+              </AreaChart>
             </ResponsiveContainer>
           </div>
         </CardContent>
@@ -124,10 +142,13 @@ export default function StatsDashboard() {
 
       {/* Top pages & referrers */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 ">
-        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] border-1 border-black">
+        <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
           <CardContent className="p-4">
-            <div className=" text-lg font-medium mb-2 text-white font-arvo">Top pages</div>
-            <div className="h-64 w-[95%] sm:w-full mx-auto">
+            <div className="flex items-center gap-3 mb-2">
+              <img src="/icons/topPages.svg" alt="Top Pages" className="w-8 h-8 opacity-70 flex-shrink-0" />
+              <div className=" text-lg font-medium text-white font-arvo">Top pages</div>
+            </div>
+            <div className="h-64 w-full mx-auto">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={topPagesFmt} layout="vertical" margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -148,10 +169,13 @@ export default function StatsDashboard() {
           </CardContent>
         </BasicCard>
 
-        <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] border-1 border-black">
+        <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
           <CardContent className="p-4">
-            <div className=" text-lg font-medium mb-2 text-white font-arvo">Top referrers</div>
-            <div className="h-64 w-[95%] sm:w-full mx-auto">
+            <div className="flex items-center gap-3 mb-2">
+              <img src="/icons/link.svg" alt="Top Referrers" className="w-8 h-8 opacity-70 flex-shrink-0" />
+              <div className=" text-lg font-medium text-white font-arvo">Top referrers</div>
+            </div>
+            <div className="h-64 w-full mx-auto">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={topRefsFmt} layout="vertical" margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -174,7 +198,7 @@ export default function StatsDashboard() {
       </div>
 
       {/* Recent visits table */}
-      <BasicCard className="rounded-2xl shadow bg-[rgb(35,39,47)] mt-5 mh-2 border-1 border-black">
+      <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10 mt-5">
         <CardContent className="p-4">
           <div className="text-lg font-medium mb-2 text-white font-arvo">Recent visits</div>
           <div className="overflow-x-auto">

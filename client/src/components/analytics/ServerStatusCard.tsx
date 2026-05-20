@@ -1,34 +1,30 @@
 import { JSX, useEffect, useState } from "react";
 import { pingApi } from "../../lib/api";
 
-
 export default function ServerStatusCard(): JSX.Element {
-
-  const [status, setStatus] = useState<"OK" | "DOWN">("DOWN");
-  const [rtt, setRtt] = useState<number | null>(null);
+  const [status, setStatus] = useState<"ONLINE" | "DOWN">("DOWN");
   const [uptimeDays, setUptimeDays] = useState<number | null>(null);
   const [uptimeHours, setUptimeHours] = useState<number | null>(null);
 
-    useEffect(() => {
-      let cancelled = false;
-  
-      async function check() {
-        const { ok, rttMs } = await pingApi();
-        if (cancelled) return;
-        setStatus(ok ? "OK" : "DOWN");
-        setRtt(Math.round(rttMs));
-      }
-  
-      check();                              // run once on mount
-      const id = setInterval(check, 30000); // then every 30s
-      return () => { cancelled = true; clearInterval(id); };
-    }, []);
-
-    const isOk = String(status).toUpperCase() === "OK";
-  
   useEffect(() => {
     let cancelled = false;
-  
+
+    async function check() {
+      const { ok } = await pingApi();
+      if (cancelled) return;
+      setStatus(ok ? "ONLINE" : "DOWN");
+    }
+
+    check();
+    const id = setInterval(check, 30000);
+    return () => { cancelled = true; clearInterval(id); };
+  }, []);
+
+  const isOk = String(status).toUpperCase() === "ONLINE";
+
+  useEffect(() => {
+    let cancelled = false;
+
     async function getUptime() {
       try {
         const res = await fetch("/api/uptime");
@@ -42,35 +38,40 @@ export default function ServerStatusCard(): JSX.Element {
         console.error("Uptime fetch failed", err);
       }
     }
-  
+
     getUptime();
-    const id = setInterval(getUptime, 60_000); // refresh every 1 min
-  
+    const id = setInterval(getUptime, 60_000);
+
     return () => {
       cancelled = true;
       clearInterval(id);
     };
   }, []);
-  
-    return (
-    <div className=" flex flex-col w-full md:w-auto justify-between items-center m-10 p-2 text-xs font-mono text-white font-[500] rounded-xl backdrop-blur-xs shadow-lg ring-2 ring-black ">
-        <span>
-        Spring Server Status:{" "}
-        <span
-            className={
-            `font-semibold ` +
-            (isOk
-                ? 'text-green-400 [text-shadow:0_0_8px_rgba(74,222,128,.55)]'
-                : 'text-red-400 [text-shadow:0_0_8px_rgba(248,113,113,.55)]')
-            }
-        >
-            "{status}"
-        </span>    
-        </span>
 
-        <span>{rtt != null && `Server ping: ${rtt} ms`}</span>
+  const uptimeMinutes = 0;
 
-        <span>Current Server Uptime: {uptimeDays} days, {uptimeHours} hours</span>
+  return (
+    <div className="w-full px-6 py-2 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
+      {/* Status indicator dot */}
+      <div className={`absolute top-4 right-4 w-3 h-3 rounded-full ${isOk ? 'bg-[#5bb25b] shadow-lg shadow-green-500/50' : 'bg-red-500 shadow-lg shadow-red-500/50'}`} />
+
+      <div className="flex gap-4">
+        {/* Icon */}
+        <div className="flex-shrink-0 self-center p-3 rounded-lg" style={{ backgroundColor: 'rgba(91, 178, 91, 0.15)' }}>
+          <img src="/icons/storage.svg" alt="Server" className="w-6 h-6" />
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">Server Status</p>
+          <p className={`text-2xl font-mono font-bold mb-2 ${isOk ? 'text-[#5bb25b]' : 'text-red-400'}`}>
+            {status}
+          </p>
+          <p className="text-xs text-gray-300 font-mono">
+            Uptime: {uptimeDays} days, {uptimeHours} hours, {uptimeMinutes} mins
+          </p>
+        </div>
+      </div>
     </div>
-    )
+  );
 }

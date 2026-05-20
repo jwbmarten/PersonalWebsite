@@ -59,65 +59,77 @@ export default function MusicRecCard(): JSX.Element {
     const artSrc = song?.art_url || '';
 
     return (
-    <div className="flex w-full max-w-3xl items-center m-6 p-3 text-sm text-white rounded-xl backdrop-blur-sm shadow-lg ring-2 ring-gray-900 bg-white/5">
-            {/* Left: artwork */}
-            <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 mr-3 rounded-md overflow-hidden bg-gray-800 flex items-center justify-center">
-                {artSrc ? (
-                    // Image: keep aspect via object-cover
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={artSrc} alt={song?.title ?? 'art'} className="w-full h-full object-cover" />
-                ) : (
-                    <div className="text-xs text-gray-300 px-2 text-center">No artwork</div>
-                )}
-            </div>
+    <div className="flex w-full max-w-3xl flex-col items-center pt-1 px-6 pb-3 text-sm text-white rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
+            {/* Title */}
+            <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">Current Rotation</p>
 
-            {/* Right: info */}
-            <div className="flex-1 flex flex-col min-w-0">
-                <div className="flex items-baseline justify-items-start w-full">
-                    <div className="min-w-0 w-full">
-                        <TextMarquee className="text-base font-semibold leading-tight" text={song?.title ?? 'Unknown Title'} />
-                        <TextMarquee className="text-sm text-gray-300" text={song?.artist ?? 'Unknown Artist'} />
-                        <TextMarquee className="text-sm text-gray-300" text={song?.album ?? 'Unknown Album'} />
-                    </div>
+            {/* Card content */}
+            <div className="flex w-full items-center">
+                {/* Left: artwork */}
+                <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 mr-3 rounded-md overflow-hidden bg-gray-800 flex items-center justify-center">
+                    {artSrc ? (
+                        // Image: keep aspect via object-cover
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={artSrc} alt={song?.title ?? 'art'} className="w-full h-full object-cover" />
+                    ) : (
+                        <div className="text-xs text-gray-300 px-2 text-center">No artwork</div>
+                    )}
                 </div>
 
-                                <div className="mt-2">
-                                    <div className="flex items-center gap-3 whitespace-nowrap">
-                                                {song?.spotify_url && (
-                                                        <a
-                                                            href={song.spotify_url}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            aria-label="Open on Spotify"
-                                                            className="inline-flex items-center justify-center w-8 h-8 hover:scale-105 transition-transform"
-                                                        >
-                                                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                            <img src={SpotifyIcon} alt="Spotify" className="w-8 h-8 object-contain" />
-                                                        </a>
-                                                )}
-                                                {song?.youtube_url && (
-                                                        <a
-                                                            href={song.youtube_url}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            aria-label="Open on YouTube"
-                                                            className="inline-flex items-center justify-center w-8 h-8 hover:scale-105 transition-transform"
-                                                        >
-                                                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                            <img src={YoutubeIcon} alt="YouTube" className="w-8 h-8 object-contain" />
-                                                        </a>
-                                                )}
-                                        <button
-                                            type="button"
-                                            onClick={() => setRefresh((r) => r + 1)}
-                                            className="text-xs py-1 px-3 w-auto rounded bg-[#fdd262] text-black font-bold hover:bg-[#fdd262]/90 transition"
-                                        >
-                                            Next rec
-                                        </button>
-                                    </div>
-                                </div>
+                {/* Right: info */}
+                <div className="flex-1 flex flex-col min-w-0">
+                    <div className="flex items-baseline justify-items-start w-full">
+                        <div className="min-w-0 w-full">
+                            <TextMarquee className="text-base font-semibold leading-tight" text={song?.title ?? 'Unknown Title'} />
+                            <TextMarquee className="text-sm text-gray-300" text={song?.artist ?? 'Unknown Artist'} />
+                            <TextMarquee className="text-sm text-gray-300" text={song?.album ?? 'Unknown Album'} />
+                        </div>
+                    </div>
 
-                {error && <div className="mt-2 text-xs text-red-400">Error: {error}</div>}
+                                        <div className="mt-2">
+                                            <div className="flex items-center gap-3 whitespace-nowrap">
+                                                        {song?.spotify_url && (
+                                                                <a
+                                                                    href={song.spotify_url}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    aria-label="Open on Spotify"
+                                                                    className="inline-flex items-center justify-center w-8 h-8 hover:scale-105 transition-transform"
+                                                                >
+                                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                                    <img src={SpotifyIcon} alt="Spotify" className="w-8 h-8 object-contain" />
+                                                                </a>
+                                                        )}
+                                                        {song?.youtube_url && (
+                                                                <a
+                                                                    href={song.youtube_url}
+                                                                    target="_blank"
+                                                                    rel="noopener noreferrer"
+                                                                    aria-label="Open on YouTube"
+                                                                    className="inline-flex items-center justify-center w-8 h-8 hover:scale-105 transition-transform"
+                                                                >
+                                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                                                    <img src={YoutubeIcon} alt="YouTube" className="w-8 h-8 object-contain" />
+                                                                </a>
+                                                        )}
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setRefresh((r) => r + 1)}
+                                                            className="
+                                                                text-xs py-1 px-3 w-auto rounded
+                                                                bg-[#fdd262] text-black font-bold
+                                                                hover:bg-[#fdd261]/90
+                                                                active:bg-[#ce9503ff]
+                                                                transition
+                                                            "
+                                                        >
+                                                            Next track
+                                                        </button>
+                                            </div>
+                                        </div>
+
+                    {error && <div className="mt-2 text-xs text-red-400">Error: {error}</div>}
+                </div>
             </div>
 
                 {/* end card */}

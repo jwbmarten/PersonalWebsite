@@ -1,55 +1,38 @@
 import type { JSX } from "react";
 import ProjectCard from "../layout/ProjectCard";
 import projects from "../../data/projects";
+import GithubIcon from "../../assets/github-mark-white.svg";
 
 export default function ProjectsSection(): JSX.Element {
   const featured = projects.filter(p => p.featured);
 
   return (
-    <div>
-      <div className="w-full flex flex-col lg:flex-row items-center">
-        {featured.map((p) => (
-          <div key={p.id} className="w-full flex justify-center max-w-[1400px] py-6 lg:py-10 rounded-lg  gap-6 ">
-            <div className="flex justify-center w-full max-w-[1400px] px-6">
-              <ProjectCard
-                projectImg={p.img}
-                text={
-                  (
-                    <div className="flex flex-col h-full">
-                      <h3 className="text-3xl font-arvo text-[#fdd262] mb-2 text-center">{p.title}</h3>
-                      <p className="text-sm text-white lg:text-base flex-grow">{p.description}</p>
+    <div className="w-full mx-auto max-w-[1200px] px-6 flex flex-col gap-8 mt-6">
+      {featured.map((p) => (
+        <ProjectCard
+          key={p.id}
+          projectImg={p.img}
+          title={p.title}
+          description={p.description}
+          tags={p.tags || []}
+          links={p.links || []}
+          icon="/icons/star_shine.svg"
+          badge="Featured Project"
+          badgeColor="#bb4957"
+        />
+      ))}
 
-                      {p.links && p.links.length > 0 && (
-                        <div className="mt-auto flex justify-center gap-3">
-                          {p.links.map((l) => (
-                            <a
-                              key={l.href}
-                              href={l.href}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              className="inline-block rounded bg-[#fdd262] text-black px-3 py-1 text-sm font-medium"
-                            >
-                              {l.label}
-                            </a>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  )
-                }
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="text-xl text-white text-center">
-        To see all projects, click{" "}
-        <a href="/projects" className="text-[#fdd262]">
-          here
+      <div className="flex justify-center mt-12">
+        <a
+          href="https://github.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 px-6 py-3 text-lg font-semibold text-white border-2 border-white/20 rounded-lg hover:bg-white/10 transition"
+        >
+          <img src={GithubIcon} alt="GitHub" className="w-6 h-6" />
+          View all projects on GitHub
         </a>
       </div>
     </div>
-
-    
   );
 }

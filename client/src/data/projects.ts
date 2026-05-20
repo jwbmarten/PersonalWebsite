@@ -1,5 +1,6 @@
-import PixelSolitaireImg from '../assets/PixelSolitaire.png';
-import GarminAppImg from '../assets/jwbBlock.png';
+import PixelSolitaireImg from '../assets/PixelSolitaire_new.png';
+import GarminAppImg from '../assets/jwbBlock_new.png';
+import PulseCheckImg from '../assets/pulseCheck.png'
 
 export type Project = {
   id: string;
@@ -17,6 +18,17 @@ export type Project = {
 };
 
 export const projects: Project[] = [
+    {
+    id: 'pulse-check',
+    title: 'PulseCheck Healthcare Analysis WebApp',
+    description:
+      'EC2 deployed full-stack healthcare analytics platform leveraging large-scale nationwide ICU and behavioral health datasets to analyze patient outcomes by demographics, drug treatments, lifestyle behaviors, and more.',
+    img: PulseCheckImg,
+    featured: true,
+    tags: ['Amazon EC2', 'PostgreSQL', 'JavaScript', 'React'],
+    year: 2024,
+    links: [{ label: 'Repo (GitHub)', href: 'https://github.com/jwbmarten/pulseCheck' }],
+  },
   {
     id: 'garmin-watchface',
     title: 'Garmin Watch Face',

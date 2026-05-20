@@ -76,7 +76,7 @@ export default function NavBar(): JSX.Element {
                 ease: [0, 0.71, 0.2, 1.01],
             }}>
 
-            <div className='flex h-15 lg:h-25 items-center justify-center py-4 gap-4 lg:gap-8'>
+            <div className='flex h-12 lg:h-20 items-center justify-center py-4 gap-4 lg:gap-8'>
                 {/* large screen links */}
                 <ul className="hidden lg:flex items-center gap-6 font-paragraph text-2xl text-skin-base">
                     <li className='px-1 lg:px-4'>

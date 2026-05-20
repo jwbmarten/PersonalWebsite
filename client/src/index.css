@@ -7,9 +7,14 @@
 
   color-scheme: light dark;
   color: black;
-  background-color: #222426;
+  background-color: #0c1019;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Navbar dimensions (including top offset of 1rem / top-4) */
+  --navbar-height-mobile: 3.75rem; /* h-15 (60px) + py-2 (16px) ≈ 76px, but using h-15 as base */
+  --navbar-height-lg: 5.25rem; /* h-25 (100px) + py-2 (16px) ≈ 116px, but using h-25 as base */
+  --navbar-top-offset: 1.5rem; /* Mobile: smaller offset */
 }
 
 /* a {
@@ -68,6 +73,13 @@ a:hover {
   }
 }
 
+@media (min-width: 1024px) {
+  :root {
+    --navbar-height-mobile: 6.25rem; /* h-25 on large screens */
+    --navbar-top-offset: 2rem; /* Desktop: larger offset */
+  }
+}
+
 @keyframes typing {
   from { width: 0; }
   to { width: 100%; }
@@ -94,12 +106,23 @@ a:hover {
   font-style: italic;
 }
 
+@font-face {
+  font-family: 'Unica_One';
+  src: url('./assets/Unica_One/UnicaOne-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
 .font-arvo {
   font-family: 'Arvo', sans-serif;
 }
 
 .font-spartan {
   font-family: 'LeagueSpartan', sans-serif;
+}
+
+.font-unica {
+  font-family: 'Unica_One', sans-serif
 }
 
 .typing {
