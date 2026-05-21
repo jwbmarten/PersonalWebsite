@@ -89,7 +89,7 @@ export default function ServerStatusCard({
             {status}
           </p>
           <p className="text-xs text-gray-300 font-mono">
-            Uptime: {uptimeDays ?? "—"} days, {uptimeHours ?? "—"} hours, {uptimeMinutes ?? "—"} mins
+            Uptime: {uptimeDays ?? "—"} days, {uptimeHours ?? "—"} hours, {uptimeMinutes ?? "—"} min
           </p>
         </div>
       </div>

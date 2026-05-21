@@ -22,7 +22,7 @@ export default function ProjectCard({
   badgeColor = "#bb4957",
 }: ProjectCardProps): JSX.Element {
   return (
-    <div className="p-8 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
+    <div className="p-8 rounded-xl bg-gradient-to-br from-white/9 to-white/4 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/20">
       <div className="flex flex-col lg:flex-row gap-8 lg:items-center items-stretch">
         {/* Left: Project Info */}
         <div className="flex-1 flex flex-col">

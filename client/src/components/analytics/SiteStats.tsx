@@ -140,7 +140,16 @@ export default function StatsDashboard() {
             <img src="/icons/visits.svg" alt="Visits" className="w-8 h-8 opacity-70 flex-shrink-0" />
             <div className=" text-lg font-xl text-white font-arvo">Visits per day</div>
           </div>
-          <div className="h-64 w-full mx-auto">
+          <div
+            className="h-64 w-full mx-auto"
+            style={{
+              pointerEvents:
+                typeof window !== "undefined" &&
+                window.matchMedia("(pointer: coarse)").matches
+                  ? "none"
+                  : "auto"
+            }}
+          >
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={traffic} margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -162,7 +171,16 @@ export default function StatsDashboard() {
               <img src="/icons/topPages.svg" alt="Top Pages" className="w-8 h-8 opacity-70 flex-shrink-0" />
               <div className=" text-lg font-medium text-white font-arvo">Top pages</div>
             </div>
-            <div className="h-64 w-full mx-auto">
+            <div
+            className="h-64 w-full mx-auto"
+            style={{
+              pointerEvents:
+                typeof window !== "undefined" &&
+                window.matchMedia("(pointer: coarse)").matches
+                  ? "none"
+                  : "auto"
+            }}
+          >
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={topPagesFmt} layout="vertical" margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
                   <CartesianGrid strokeDasharray="3 3" />
@@ -189,7 +207,16 @@ export default function StatsDashboard() {
               <img src="/icons/link.svg" alt="Top Referrers" className="w-8 h-8 opacity-70 flex-shrink-0" />
               <div className=" text-lg font-medium text-white font-arvo">Top referrers</div>
             </div>
-            <div className="h-64 w-full mx-auto">
+            <div
+            className="h-64 w-full mx-auto"
+            style={{
+              pointerEvents:
+                typeof window !== "undefined" &&
+                window.matchMedia("(pointer: coarse)").matches
+                  ? "none"
+                  : "auto"
+            }}
+          >
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={topRefsFmt} layout="vertical" margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
                   <CartesianGrid strokeDasharray="3 3" />

@@ -30,9 +30,11 @@ export default function HeroSection(): JSX.Element {
             <p className="mt-6 text-center lg:text-left text-white/80 text-base md:text-lg">
               Hi, welcome to my personal website. I&apos;m a software developer building full-stack apps, backend systems, and self-hosted projects.
             </p>
-            <p className="mt-6 text-center lg:text-left text-white/80 text-base md:text-lg">
-              This website is being self-hosted from a Raspberry Pi, read more about it here.
+            <span>
+              <p className="mt-6 text-center lg:text-left text-white/80 text-base md:text-lg">
+              This website is being self-hosted from a Raspberry Pi, view live metrics <a href='/status' className='text-[#fdd262]'>here</a>.
             </p>
+            </span>
           </div>
 
           {/* Right Column */}
@@ -53,7 +55,7 @@ export default function HeroSection(): JSX.Element {
 
       {/* Featured Project Card */}
       <div className="relative z-10 mx-auto w-full max-w-[1200px] px-6 py-12 -mt-2">
-        <div className="p-8 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
+        <div className="p-8 rounded-xl bg-gradient-to-br from-white/9 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
           <div className="flex flex-col lg:flex-row gap-8">
             {/* Left: Project Info */}
             <div className="flex-1">

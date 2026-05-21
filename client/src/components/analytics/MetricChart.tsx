@@ -47,7 +47,16 @@ export default function MetricChart({
 
       {/* Chart */}
       {data.length > 0 ? (
-        <div className="h-64 w-full">
+        <div
+            className="h-64 w-full"
+            style={{
+              pointerEvents:
+                typeof window !== "undefined" &&
+                window.matchMedia("(pointer: coarse)").matches
+                  ? "none"
+                  : "auto"
+            }}
+          >
           <ResponsiveContainer width="100%" height="100%">
             <LineChart data={data} margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.1)" />
@@ -73,7 +82,7 @@ export default function MetricChart({
                 type="monotone"
                 dataKey={dataKey}
                 stroke={color}
-                strokeWidth={2}
+                strokeWidth={2} 
                 dot={false}
                 isAnimationActive={false}
               />

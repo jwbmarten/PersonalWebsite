@@ -61,10 +61,10 @@ export default function MusicRecCard(): JSX.Element {
     return (
     <div className="flex w-full max-w-3xl flex-col items-center pt-1 px-6 pb-3 text-sm text-white rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
             {/* Title */}
-            <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">Current Rotation</p>
+            <p className="text-sm uppercase tracking-widest text-gray-400 mt-1">Current Rotation</p>
 
             {/* Card content */}
-            <div className="flex w-full items-center">
+            <div className="flex w-full items-center mt-1">
                 {/* Left: artwork */}
                 <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 mr-3 rounded-md overflow-hidden bg-gray-800 flex items-center justify-center">
                     {artSrc ? (
@@ -86,7 +86,7 @@ export default function MusicRecCard(): JSX.Element {
                         </div>
                     </div>
 
-                                        <div className="mt-2">
+                                        <div className="mt-1">
                                             <div className="flex items-center gap-3 whitespace-nowrap">
                                                         {song?.spotify_url && (
                                                                 <a
@@ -123,7 +123,7 @@ export default function MusicRecCard(): JSX.Element {
                                                                 transition
                                                             "
                                                         >
-                                                            Next track
+                                                            Shuffle track
                                                         </button>
                                             </div>
                                         </div>

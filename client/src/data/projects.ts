@@ -1,5 +1,5 @@
 import PixelSolitaireImg from '../assets/PixelSolitaire_new.png';
-import GarminAppImg from '../assets/jwbBlock_new.png';
+import GarminAppImg from '../assets/jwbBlock_updated.png';
 import PulseCheckImg from '../assets/pulseCheck.png'
 
 export type Project = {

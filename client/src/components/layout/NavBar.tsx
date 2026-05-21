@@ -83,16 +83,10 @@ export default function NavBar(): JSX.Element {
                         <NavText href='/' text='Home' isMain={true} />
                     </li>
                     <li className='px-1 lg:px-4'>
-                        <NavText href='/stats' text='Stats' />
+                        <NavText href='/stats' text='Site Analytics' />
                     </li>
                     <li className='px-1 lg:px-4'>
-                        <NavText href='/projects' text='Projects' />
-                    </li>
-                    <li className='px-1 lg:px-4'>
-                        <NavText href='/status' text='Status' />
-                    </li>
-                    <li className='px-1 lg:px-4'>
-                        <NavText href='/games' text='Contact' />
+                        <NavText href='/status' text='RPi Metrics' />
                     </li>
                 </ul>
 
@@ -137,19 +131,13 @@ export default function NavBar(): JSX.Element {
                             >
                                 <ul className="flex flex-col divide-y divide-white/5">
                                     <li>
-                                        <NavLink to='/' onClick={() => setOpen(false)} className='block px-5 py-3 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Home</NavLink>
+                                        <NavLink to='/' onClick={() => setOpen(false)} className='block px-5 py-5 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Home</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/stats' onClick={() => setOpen(false)} className='block px-5 py-3 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Stats</NavLink>
+                                        <NavLink to='/stats' onClick={() => setOpen(false)} className='block px-5 py-5 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Site Analytics</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/projects' onClick={() => setOpen(false)} className='block px-5 py-3 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Projects</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/status' onClick={() => setOpen(false)} className='block px-5 py-3 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Status</NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink to='/games' onClick={() => setOpen(false)} className='block px-5 py-3 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Contact</NavLink>
+                                        <NavLink to='/status' onClick={() => setOpen(false)} className='block px-5 py-5 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>RPi Metrics</NavLink>
                                     </li>
                                 </ul>
                             </motion.div>

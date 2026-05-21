@@ -1,6 +1,6 @@
 import { motion } from 'motion/react';
 import GitLogo from '../../assets/github-mark-white.svg'
-import LinkedLogo from '../../assets/InBug-White.png'
+import LinkedLogo from '../../assets/InBug-White2.png'
 import { JSX } from 'react';
 
 export default function NavSocials(): JSX.Element {
