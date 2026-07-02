@@ -9,7 +9,7 @@ export default function NavSocials(): JSX.Element {
         <motion.div className='flex items-center gap-2'>
             <a href ='https://github.com/jwbmarten' target='_blank' rel='noopener noreferrer'>
                 <motion.img 
-                    className='px-2 h-8 sm:h-10 lg:h-14 w-auto'
+                    className='px-2 h-8 sm:h-10 lg:h-10 w-auto'
                     src = {GitLogo}
                     alt = 'GitHub'
                     shadow-xl
@@ -18,7 +18,7 @@ export default function NavSocials(): JSX.Element {
             </a>
             <a href ='https://www.linkedin.com/in/jake-marten/' target='_blank' rel='noopener noreferrer'>
                 <motion.img 
-                    className='px-2 h-8 sm:h-10 lg:h-14 w-auto'
+                    className='px-2 h-8 sm:h-10 lg:h-10 w-auto'
                     src = {LinkedLogo}
                     alt = 'LinkedIn'
                     shadow-xl

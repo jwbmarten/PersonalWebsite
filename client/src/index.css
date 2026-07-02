@@ -5,7 +5,7 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: dark;
   color: black;
   background-color: #0c1019;
   -webkit-font-smoothing: antialiased;
@@ -26,11 +26,17 @@ a:hover {
   color: #535bf2;
 } */
 
-/* body {
+html,
+body,
+#root {
+  min-height: 100%;
+  background-color: #0c1019;
+}
+
+body {
   margin: 0;
   min-width: 320px;
-  min-height: 100vh;
-} */
+}
 
 /* h1 {
   font-size: 3.2em;
@@ -58,19 +64,6 @@ a:hover {
 .btn:focus,
 .btn:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
-
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  .btn {
-    background-color: #f9f9f9;
-  }
 }
 
 @media (min-width: 1024px) {
@@ -113,6 +106,34 @@ a:hover {
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'SueEllen';
+  src: url('./assets/Sue_Ellen_Francisco/SueEllenFrancisco-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Forum';
+  src: url('./assets/Forum/Forum-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Metal';
+  src: url('./assets/Metal_Mania/MetalMania-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('./assets/Roboto/Roboto-VariableFont_wdth\,wght.ttf');
+  font-weight: 400 700;
+  font-style: normal;
+}
+
 .font-arvo {
   font-family: 'Arvo', sans-serif;
 }
@@ -123,6 +144,22 @@ a:hover {
 
 .font-unica {
   font-family: 'Unica_One', sans-serif
+}
+
+.font-sueEllen {
+  font-family: 'SueEllen', sans-serif;
+}
+
+.font-forum {
+  font-family: 'Forum', sans-serif
+}
+
+.font-metal {
+  font-family: 'Metal', sans-serif
+}
+
+.font-roboto {
+  font-family: 'Roboto', sans-serif
 }
 
 .typing {

@@ -74,18 +74,18 @@ export default function ServerStatusCard({
   return (
     <div className="w-full px-6 py-2 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
       {/* Status indicator dot */}
-      <div className={`absolute top-4 right-4 w-3 h-3 rounded-full ${isOk ? 'bg-[#5bb25b] shadow-lg shadow-green-500/50' : 'bg-red-500 shadow-lg shadow-red-500/50'}`} />
+      <div className={`absolute top-4 right-4 w-3 h-3 rounded-full ${isOk ? 'bg-[#5bb25b] shadow-lg shadow-green-500/70 border-1 border-black' : 'bg-red-500 shadow-lg shadow-red-500/50'}`} />
 
       <div className="flex gap-4">
         {/* Icon */}
-        <div className="flex-shrink-0 self-center p-3 rounded-lg" style={{ backgroundColor: 'rgba(91, 178, 91, 0.15)' }}>
+        <div className="flex-shrink-0 self-center p-3 rounded-lg border-1 border-green-500/30 shadow-md shadow-black/20" style={{ backgroundColor: 'rgba(91, 178, 91, 0.15)' }}>
           <img src="/icons/storage.svg" alt="Server" className="w-6 h-6" />
         </div>
 
         {/* Content */}
         <div className="flex-1 min-w-0">
           <p className="text-sm uppercase tracking-widest text-gray-400 mb-1">Server Status</p>
-          <p className={`text-2xl font-mono font-bold mb-2 ${isOk ? 'text-[#5bb25b]' : 'text-red-400'}`}>
+          <p className={`text-2xl font-mono font-bold mb-2 ${isOk ? 'text-[#5bb25b]' : 'text-red-400'}`} style={{ textShadow: "0 2px 3px rgba(20, 20, 20, 0.75)" }}>
             {status}
           </p>
           <p className="text-xs text-gray-300 font-mono">

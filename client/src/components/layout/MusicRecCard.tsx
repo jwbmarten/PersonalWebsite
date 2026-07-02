@@ -1,6 +1,7 @@
 import { JSX, useEffect, useState } from "react";
 import SpotifyIcon from "../../assets/spotify_icon.png";
 import YoutubeIcon from "../../assets/youtube_icon.png";
+import ShuffleIcon from "../../assets/shuffle.svg"
 import TextMarquee from "./TextMarquee";
 
 type SongRec = {
@@ -61,23 +62,24 @@ export default function MusicRecCard(): JSX.Element {
     return (
     <div className="flex w-full max-w-3xl flex-col items-center pt-1 px-6 pb-3 text-sm text-white rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
             {/* Title */}
-            <p className="text-sm uppercase tracking-widest text-gray-400 mt-1">Current Rotation</p>
+            
 
             {/* Card content */}
             <div className="flex w-full items-center mt-1">
                 {/* Left: artwork */}
-                <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 mr-3 rounded-md overflow-hidden bg-gray-800 flex items-center justify-center">
+                <div className="flex-shrink-0 w-20 h-20 sm:w-24 sm:h-24 mr-3 rounded-md overflow-hidden bg-gray-800 flex items-center justify-center shadow-md shadow-black/40">
                     {artSrc ? (
                         // Image: keep aspect via object-cover
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={artSrc} alt={song?.title ?? 'art'} className="w-full h-full object-cover" />
+                        <img src={artSrc} alt={song?.title ?? 'art'} className="w-full h-full object-cover border-1 border-black/50" />
                     ) : (
                         <div className="text-xs text-gray-300 px-2 text-center">No artwork</div>
                     )}
                 </div>
 
                 {/* Right: info */}
-                <div className="flex-1 flex flex-col min-w-0">
+                <div className="flex-1 flex flex-col min-w-0 pl-1">
+                    <p className="font-sueEllen text-lg uppercase tracking-widest text-[#fdd262]/80 mt-1 text-center pb-1">Current Rotation</p>
                     <div className="flex items-baseline justify-items-start w-full">
                         <div className="min-w-0 w-full">
                             <TextMarquee className="text-base font-semibold leading-tight" text={song?.title ?? 'Unknown Title'} />
@@ -86,47 +88,74 @@ export default function MusicRecCard(): JSX.Element {
                         </div>
                     </div>
 
-                                        <div className="mt-1">
-                                            <div className="flex items-center gap-3 whitespace-nowrap">
-                                                        {song?.spotify_url && (
-                                                                <a
-                                                                    href={song.spotify_url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    aria-label="Open on Spotify"
-                                                                    className="inline-flex items-center justify-center w-8 h-8 hover:scale-105 transition-transform"
-                                                                >
-                                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                                    <img src={SpotifyIcon} alt="Spotify" className="w-8 h-8 object-contain" />
-                                                                </a>
-                                                        )}
-                                                        {song?.youtube_url && (
-                                                                <a
-                                                                    href={song.youtube_url}
-                                                                    target="_blank"
-                                                                    rel="noopener noreferrer"
-                                                                    aria-label="Open on YouTube"
-                                                                    className="inline-flex items-center justify-center w-8 h-8 hover:scale-105 transition-transform"
-                                                                >
-                                                                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                                                                    <img src={YoutubeIcon} alt="YouTube" className="w-8 h-8 object-contain" />
-                                                                </a>
-                                                        )}
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => setRefresh((r) => r + 1)}
-                                                            className="
-                                                                text-xs py-1 px-3 w-auto rounded
-                                                                bg-[#fdd262] text-black font-bold
-                                                                hover:bg-[#fdd261]/90
-                                                                active:bg-[#ce9503ff]
-                                                                transition
-                                                            "
-                                                        >
-                                                            Shuffle track
-                                                        </button>
-                                            </div>
-                                        </div>
+     <div className="mt-2 w-full pr-3">
+    <div className="flex items-center justify-between gap-4 whitespace-nowrap">
+        
+        {/* Left side: music platform icons */}
+        <div className="flex items-center gap-3 flex-shrink-0">
+            {song?.spotify_url && (
+                <a
+                    href={song.spotify_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Open on Spotify"
+                    className="inline-flex items-center justify-center w-8 h-8 hover:scale-105 transition-transform"
+                >
+                    <img
+                        src={SpotifyIcon}
+                        alt="Spotify"
+                        className="w-8 h-8 object-contain"
+                    />
+                </a>
+            )}
+
+            {song?.youtube_url && (
+                <a
+                    href={song.youtube_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Open on YouTube"
+                    className="inline-flex items-center justify-center w-8 h-8 hover:scale-105 transition-transform"
+                >
+                    <img
+                        src={YoutubeIcon}
+                        alt="YouTube"
+                        className="w-8 h-8 object-contain"
+                    />
+                </a>
+            )}
+        </div>
+
+        {/* Right side: button */}
+        <button
+            type="button"
+            onClick={() => setRefresh((r) => r + 1)}
+            className="
+                flex-shrink-0
+                font-sueEllen
+                text-sm py-1 px-3 rounded
+                bg-[#fdd262]/90 text-black font-bold
+                hover:bg-[#fdd261]/90
+                hover:scale-105
+                active:bg-[#ce9503ff]
+                transition
+                shadow-sm
+                shadow-black/40
+                shadow-inset-sm
+                shadow-inset-black/30
+            "
+        >
+            <div className="flex gap-1 items-center">
+                NEXT TRACK
+                <img
+                    src={ShuffleIcon}
+                    alt="shuffle"
+                    className="w-4 h-4"
+                />
+            </div>
+        </button>
+    </div>
+</div>
 
                     {error && <div className="mt-2 text-xs text-red-400">Error: {error}</div>}
                 </div>

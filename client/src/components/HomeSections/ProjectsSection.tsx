@@ -2,9 +2,18 @@ import type { JSX } from "react";
 import ProjectCard from "../layout/ProjectCard";
 import projects from "../../data/projects";
 import GithubIcon from "../../assets/github-mark-white.svg";
+import { motion } from "motion/react";
 
 export default function ProjectsSection(): JSX.Element {
   const featured = projects.filter(p => p.featured);
+
+  const fadeInVariants = {
+      hidden: { opacity: 0 },
+      visible: { 
+      opacity: 1, 
+      transition: { duration: 1.8, delay: 0.1 } 
+      },
+    };
 
   return (
     <div className="w-full mx-auto max-w-[1200px] px-6 flex flex-col gap-8 mt-6">
@@ -13,6 +22,7 @@ export default function ProjectsSection(): JSX.Element {
           key={p.id}
           projectImg={p.img}
           title={p.title}
+          subtitle={p.subtitle}
           description={p.description}
           tags={p.tags || []}
           links={p.links || []}
@@ -22,6 +32,12 @@ export default function ProjectsSection(): JSX.Element {
         />
       ))}
 
+      <motion.nav 
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true}}
+      variants={fadeInVariants}
+      >
       <div className="flex justify-center mt-12">
         <a
           href="https://github.com"
@@ -32,7 +48,7 @@ export default function ProjectsSection(): JSX.Element {
           <img src={GithubIcon} alt="GitHub" className="w-6 h-6" />
           View all projects on GitHub
         </a>
-      </div>
+      </div></motion.nav>
     </div>
   );
 }

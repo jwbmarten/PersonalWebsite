@@ -48,8 +48,27 @@ export default function StatsDashboard() {
     return () => { alive = false };
   }, [days]);
 
-  const topPagesFmt = useMemo(() => topPages.filter(d => !d.path?.startsWith('/music_art')).map(d => ({ ...d, path: d.path || "/" })), [topPages]);
+
+  const pageLabels: Record<string, string> = {
+    "/": "Homepage",
+    "/stats": "Analytics",
+    "/status": "Metrics",
+  };
+
+  const topPagesFmt = useMemo(
+  () =>
+    topPages
+      .filter(d => !d.path?.startsWith("/music_art"))
+      .map(d => ({
+        ...d,
+        path: d.path || "/",
+        label: pageLabels[d.path || "/"] ?? (d.path || "/"),
+      })),
+  [topPages]
+);
   const topRefsFmt = useMemo(() => topRefs.map(d => ({ ...d, domain: d.domain || "(direct / none)" })), [topRefs]);
+
+
 
   const barColors = ["#bb4957", "#60a5fa", "#D7AC80", "#ABBE86", "#9F8DBD", "#fdd262" ];
   const short = (s: string, n = 28) => (s?.length > n ? s.slice(0, n - 1) + "…" : s);
@@ -63,6 +82,9 @@ export default function StatsDashboard() {
     } catch {
       return dateStr;
     }
+
+    
+
   };
 
   return (
@@ -81,18 +103,18 @@ export default function StatsDashboard() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 ">
         <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
           <CardContent className="p-4 flex items-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-yellow-500/20 flex items-center justify-center flex-shrink-0">
+            <div className="w-16 h-16 rounded-full bg-yellow-500/20 flex items-center justify-center flex-shrink-0 shadow-md shadow-black/20 border-1 border-[#fdd262]/50">
               <img src="/icons/totalVisits.svg" alt="Total visits" className="w-8 h-8" />
             </div>
             <div className="flex-1">
-              <div className="text-sm opacity-70 text-gray-300 font-arvo">Total visits (last {summary?.sinceDays ?? days} days)</div>
+              <div className="text-sm opacity-70 text-gray-300 font-arvo">Page Views (last {summary?.sinceDays ?? days} days)</div>
               <div className="text-3xl font-semibold text-white">{summary?.totalVisits ?? "—"}</div>
             </div>
           </CardContent>
         </BasicCard>
         <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
           <CardContent className="p-4 flex items-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center flex-shrink-0">
+            <div className="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center flex-shrink-0 shadow-md shadow-black/20 border-1 border-[#8d64d3]/50">
               <img src="/icons/unique.svg" alt="Unique visitors" className="w-8 h-8" />
             </div>
             <div className="flex-1">
@@ -103,7 +125,7 @@ export default function StatsDashboard() {
         </BasicCard>
         <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
           <CardContent className="p-4 flex items-center gap-4">
-            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0">
+            <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center flex-shrink-0 shadow-md shadow-black/20 border-1 border-[#5bb25b]/50">
               <img src="/icons/countries.svg" alt="Countries" className="w-8 h-8" />
             </div>
             <div className="flex-1">
@@ -119,7 +141,7 @@ export default function StatsDashboard() {
         <label className="text-sm text-white flex items-center gap-2">
           <img src="/icons/calendar.svg" alt="Calendar" className="w-4 h-4" />
           Days: 
-          <select className="ml-2 border rounded px-2 py-1 border-white" value={days} onChange={e => setDays(Number(e.target.value))}>
+          <select className="ml-2 border rounded px-2 py-1 border-white/90" value={days} onChange={e => setDays(Number(e.target.value))}>
             <option className="text-black" value={7}>7</option>
             <option className="text-black" value={14}>14</option>
             <option className="text-black" value={30}>30</option>
@@ -132,13 +154,11 @@ export default function StatsDashboard() {
 
       {/* Traffic over time */}
       <div>
-
-      
       <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10 mb-5">
         <CardContent className="p-4">
-          <div className="flex items-center gap-3 mb-2">
-            <img src="/icons/visits.svg" alt="Visits" className="w-8 h-8 opacity-70 flex-shrink-0" />
-            <div className=" text-lg font-xl text-white font-arvo">Visits per day</div>
+          <div className="flex items-end gap-3 mb-2">
+            <img src="/icons/visits2.svg" alt="Visits" className="w-8 h-8 opacity-70 flex-shrink-0" />
+            <div className=" text-lg text-white font-arvo" style={{ textShadow: "0 2px 3px rgba(20, 20, 20, 0.75)" }}>Visits per day</div>
           </div>
           <div
             className="h-64 w-full mx-auto"
@@ -152,11 +172,37 @@ export default function StatsDashboard() {
           >
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={traffic} margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
-                <CartesianGrid strokeDasharray="3 3" />
-                <XAxis dataKey="date" tick={{ fontSize: 12 }} tickFormatter={formatDateLabel} />
+
+                <defs>
+                  <linearGradient id="trafficGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="#ffffff" stopOpacity={0.35} />
+                  <stop offset="100%" stopColor="#ffffff" stopOpacity={0.02} />
+                  </linearGradient>
+                </defs>
+                <CartesianGrid
+                  stroke="rgba(255, 255, 255, 0.22)"
+                  vertical={false}
+                />
+                <XAxis
+                  dataKey="date"
+                  tick={{ fontSize: 12, fill: "rgba(255,255,255,0.45)" }}
+                  tickFormatter={formatDateLabel}
+                  interval="preserveStartEnd"
+                  tickLine={false}
+                  axisLine={{ stroke: "rgba(255,255,255,0.25)" }}
+                />
                 <YAxis allowDecimals={false} tick={{ fontSize: 12 }} />
-                <Tooltip />
-                <Area type="monotone" dataKey="visits" fill="#8d64d3" stroke="#8d64d3" strokeWidth={2} />
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "#fff",
+                    border: "1px solid #ccc",
+                    borderRadius: "8px",
+                    color: "#000",
+                  }}
+                  labelStyle={{ color: "#000" }}
+                  itemStyle={{ color: "#000" }}
+                />
+                <Area type="monotone" dataKey="visits" fill="url(#trafficGradient)" stroke="white" strokeWidth={1} />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -168,8 +214,8 @@ export default function StatsDashboard() {
         <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
           <CardContent className="p-4">
             <div className="flex items-center gap-3 mb-2">
-              <img src="/icons/topPages.svg" alt="Top Pages" className="w-8 h-8 opacity-70 flex-shrink-0" />
-              <div className=" text-lg font-medium text-white font-arvo">Top pages</div>
+              <img src="/icons/topPages2.svg" alt="Top Pages" className="w-8 h-8 opacity-70 flex-shrink-0" />
+              <div className=" text-lg font-medium text-white font-arvo" style={{ textShadow: "0 2px 3px rgba(20, 20, 20, 0.75)" }}>Top pages</div>
             </div>
             <div
             className="h-64 w-full mx-auto"
@@ -182,12 +228,35 @@ export default function StatsDashboard() {
             }}
           >
               <ResponsiveContainer width="100%" height="100%">
-                <BarChart data={topPagesFmt} layout="vertical" margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis type="number" allowDecimals={false} />
-                  <YAxis type="category" dataKey="path" width={100} tick={{ fontSize: 12, fill: "#ffffff" }} tickFormatter={(v: string) => short(v, 24)} />
-                  <Tooltip />
-                  <Bar dataKey="hits">
+                <BarChart data={topPagesFmt} layout="vertical" margin={{ left: 0, right: 20, top: 8, bottom: 8 }}>
+                  <CartesianGrid
+                  stroke="rgba(255, 255, 255, 0.22)"
+                  horizontal={false}
+                />
+                  <XAxis
+                    type="number"
+                    allowDecimals={false}
+                    tick={{ fontSize: 12, fill: "rgba(255,255,255,0.45)" }}
+                    axisLine={{ stroke: "rgba(255,255,255,0.25)" }}
+                    tickLine={false}
+                  />
+
+                  <YAxis
+                    type="category"
+                    dataKey="label"
+                    width={100}
+                    tick={{ fontSize: 12, fill: "#ffffff" }}
+                    tickLine={false}
+                    axisLine={false}
+                    tickFormatter={(v: string) => short(v, 24)}
+                  />
+
+                  <CartesianGrid
+                    stroke="rgba(255,255,255,0.10)"
+                    horizontal={false}
+                  />
+
+                  <Bar dataKey="hits" radius={[0, 6, 6, 0]} animationDuration={1500}>
                     {topPagesFmt.map((entry, index) => (
                       <Cell
                         key={entry.path ?? index}
@@ -204,8 +273,8 @@ export default function StatsDashboard() {
         <BasicCard className="rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
           <CardContent className="p-4">
             <div className="flex items-center gap-3 mb-2">
-              <img src="/icons/link.svg" alt="Top Referrers" className="w-8 h-8 opacity-70 flex-shrink-0" />
-              <div className=" text-lg font-medium text-white font-arvo">Top referrers</div>
+              <img src="/icons/link2.svg" alt="Top Referrers" className="w-8 h-8 opacity-70 flex-shrink-0" />
+              <div className=" text-lg font-medium text-white font-arvo" style={{ textShadow: "0 2px 3px rgba(20, 20, 20, 0.75)" }}>Top referrers</div>
             </div>
             <div
             className="h-64 w-full mx-auto"
@@ -219,11 +288,22 @@ export default function StatsDashboard() {
           >
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={topRefsFmt} layout="vertical" margin={{ left: 0, right: 8, top: 8, bottom: 8 }}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis type="number" allowDecimals={false} />
-                  <YAxis type="category" dataKey="domain" width={100} tick={{ fontSize: 12, fill: "#ffffff" }} tickFormatter={(v: string) => short(v, 26)} />
+                  <CartesianGrid
+                    stroke="rgba(255,255,255,0.10)"
+                    horizontal={false}
+                  />
+                  <XAxis type="number" 
+                    allowDecimals={false} 
+                    tick={{ fontSize: 12, fill: "rgba(255,255,255,0.45)" }}
+                    axisLine={{ stroke: "rgba(255,255,255,0.25)" }}
+                    tickLine={false} />
+                  <YAxis type="category" dataKey="domain" width={100}
+                    tick={{ fontSize: 12, fill: "#ffffff" }}
+                    tickLine={false}
+                    axisLine={false}
+                    tickFormatter={(v: string) => short(v, 24)} />
                   <Tooltip />
-                  <Bar dataKey="hits">
+                  <Bar dataKey="hits" radius={[0, 6, 6, 0]} animationDuration={1500}>
                     {topPagesFmt.map((entry, index) => (
                       <Cell
                         key={entry.path ?? index}
@@ -246,19 +326,19 @@ export default function StatsDashboard() {
             <table className="w-full text-sm">
               <thead>
                 <tr className="text-left border-b border-white/10">
-                  <th className="py-2 pr-3 text-white">Time</th>
-                  <th className="py-2 pr-3 text-white">Country</th>
-                  <th className="py-2 pr-3 text-white">Path</th>
-                  <th className="py-2 pr-3 text-white">Referrer</th>
+                  <th className="py-2 pr-3 text-white font-spartan">Time</th>
+                  <th className="py-2 pr-3 text-white font-spartan">Country</th>
+                  <th className="py-2 pr-3 text-white font-spartan">Path</th>
+                  <th className="py-2 pr-3 text-white font-spartan">Referrer</th>
                 </tr>
               </thead>
               <tbody>
                 {recent.map((r, i) => (
                   <tr key={i} className="border-b border-white/5">
-                    <td className="py-2 pr-3 whitespace-nowrap text-white">{new Date(r.ts).toLocaleString()}</td>
-                    <td className="py-2 pr-3 text-white">{r.country ?? "—"}</td>
-                    <td className="py-2 pr-3 truncate max-w-[260px] text-white" title={r.path ?? undefined}>{r.path ?? "—"}</td>
-                    <td className="py-2 pr-3 truncate max-w-[260px] text-white" title={r.referrer ?? undefined}>{r.referrer ?? "(direct / none)"}</td>
+                    <td className="py-2 pr-3 whitespace-nowrap text-white font-spartan">{new Date(r.ts).toLocaleString()}</td>
+                    <td className="py-2 pr-3 text-white font-spartan">{r.country ?? "—"}</td>
+                    <td className="py-2 pr-3 truncate max-w-[260px] text-white font-spartan" title={r.path ?? undefined}>{r.path ?? "—"}</td>
+                    <td className="py-2 pr-3 truncate max-w-[260px] text-white font-spartan" title={r.referrer ?? undefined}>{r.referrer ?? "(direct / none)"}</td>
                   </tr>
                 ))}
               </tbody>

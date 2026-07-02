@@ -5,6 +5,7 @@ import MetricCard from "../analytics/MetricCard";
 import MetricChart from "../analytics/MetricChart";
 import NavBar from "../layout/NavBar";
 import PiPic from "../../assets/RPI_Physical.png"
+import { motion } from "motion/react";
 
 interface SystemMetricSample {
   timestamp: string;
@@ -71,10 +72,23 @@ export default function Status(): JSX.Element {
     };
   }, []);
 
-  // Check if we have enough data (at least 2 samples)
+  // Check if there's enough data to plot (2+ samples)
   const hasEnoughData = history.length >= 2;
 
+  const fadeInVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+    opacity: 1, 
+    transition: { duration: 1.8, delay: 0.1 } 
+  },};
+
   return (
+    <motion.nav 
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true}}
+      variants={fadeInVariants}
+    >
     <div className="w-full py-12 mt-20 lg:mt-32">
         <div className="fixed top-4 left-0 right-0 z-50 flex justify-center">
           <NavBar />
@@ -106,11 +120,19 @@ export default function Status(): JSX.Element {
         </div>
 
         {/* Right Column: Raspberry Pi Info Card */}
-        <div className="lg:col-span-2 w-full px-6 py-3 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
-          <h3 className="text-lg font-spartan font-bold text-white">Raspberry Pi</h3>
+        <div className="lg:col-span-2 w-full px-6 py-3 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg shadow-black ring-1 ring-white/20 border border-white/10">
+          <div className="flex justify-center gap-3">
+            <img 
+                  src="/icons/Raspberry_Pi_Logo.svg"
+                  alt="RPi_Logo"
+                  className="w-6 h-6 flex-shrink-0"
+                />
+            <h3 className="text-lg font-roboto font-bold text-white text-center" style={{ textShadow: "0 3px 4px rgba(20, 20, 20, 0.75)" }}>Raspberry Pi</h3>
+          </div>
+          
           
           {/* Horizontal layout: Image left, specs right */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 lg:gap-4 items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 items-center">
             {/* Pi Image - Left side (no background container) */}
             <div className="flex justify-center lg:justify-start">
               <img 
@@ -120,8 +142,9 @@ export default function Status(): JSX.Element {
               />
             </div>
 
+
             {/* Stats Grid - Right side */}
-            <div className="space-y-3 text-sm">
+            <div className="space-y-3 text-sm mx-auto w-3/4 min-w-70 rounded-xl bg-black/9 ring-1 ring-white/20 p-2">
               {/* Model */}
               <div className="flex items-center gap-3">
                 <img 
@@ -203,28 +226,60 @@ export default function Status(): JSX.Element {
       <div className="w-full mx-auto max-w-[1200px] px-6 mb-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {/* CPU Temperature */}
-          <MetricCard
+          <div className="flex flex-col gap-4">
+            <MetricCard
             label="CPU Temperature"
             value={current?.cpuTempCelsius ?? null}
             unit="°C"
             icon="/icons/temp.svg"
-          />
-
-          {/* CPU Usage */}
-          <MetricCard
-            label="CPU Usage"
-            value={current?.cpuUsagePercent ?? null}
-            unit="%"
-            icon="/icons/cpu_color.svg"
-          />
-
-          {/* Memory Usage */}
-          <MetricCard
-            label="Memory Usage"
-            value={current?.memoryUsagePercent ?? null}
-            unit="%"
-            icon="/icons/memory_color.svg"
-          />
+          />            
+          {/* CPU Temperature Chart */}
+            <MetricChart
+              data={history}
+              dataKey="cpuTempCelsius"
+              color="#f97373"
+              label="CPU Temperature (°C)"
+              icon="/icons/temp.svg"
+            />
+          </div>
+          
+          <div className="flex flex-col gap-4">
+            {/* CPU Usage */}
+            <MetricCard
+              label="CPU Usage"
+              value={current?.cpuUsagePercent ?? null}
+              unit="%"
+              icon="/icons/cpu_color.svg"
+            />
+          {/* CPU Usage Chart */}
+            <MetricChart
+              data={history}
+              dataKey="cpuUsagePercent"
+              color="#60a5fa"
+              label="CPU Usage (%)"
+              icon="/icons/cpu_color.svg"
+            />
+          </div>
+          
+          
+          <div className="flex flex-col gap-4">
+            {/* Memory Usage */}
+            <MetricCard
+              label="Memory Usage"
+              value={current?.memoryUsagePercent ?? null}
+              unit="%"
+              icon="/icons/memory_color.svg"
+            />
+            {/* Memory Usage Chart */}
+            <MetricChart
+              data={history}
+              dataKey="memoryUsagePercent"
+              color="#fdd262"
+              label="Memory Usage (%)"
+              icon="/icons/memory_color.svg"
+            />
+          </div>
+          
         </div>
       </div>
 
@@ -232,32 +287,11 @@ export default function Status(): JSX.Element {
       <div className="w-full mx-auto max-w-[1200px] px-6">
         {hasEnoughData ? (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-            {/* CPU Temperature Chart */}
-            <MetricChart
-              data={history}
-              dataKey="cpuTempCelsius"
-              color="#f97373"
-              label="CPU Temperature"
-              icon="/icons/temp.svg"
-            />
 
-            {/* CPU Usage Chart */}
-            <MetricChart
-              data={history}
-              dataKey="cpuUsagePercent"
-              color="#60a5fa"
-              label="CPU Usage"
-              icon="/icons/cpu_color.svg"
-            />
 
-            {/* Memory Usage Chart */}
-            <MetricChart
-              data={history}
-              dataKey="memoryUsagePercent"
-              color="#fdd262"
-              label="Memory Usage"
-              icon="/icons/memory_color.svg"
-            />
+            
+
+            
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
@@ -272,6 +306,6 @@ export default function Status(): JSX.Element {
           </div>
         )}
       </div>
-    </div>
+    </div></motion.nav>
   );
 }

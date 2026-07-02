@@ -22,6 +22,14 @@ interface SectionWithProgressProps {
 }
 
 function SectionWithProgress({ header, icon, title, subtitle, children }: SectionWithProgressProps): JSX.Element {
+
+    const fadeInVariants = {
+      hidden: { opacity: 0 },
+      visible: { 
+      opacity: 1, 
+      transition: { duration: 2.0, delay: 0.1 } 
+      },
+      };
   // Each section gets its own ref.
   const ref = useRef<HTMLElement | null>(null);
 
@@ -34,6 +42,12 @@ function SectionWithProgress({ header, icon, title, subtitle, children }: Sectio
   return (
     <section ref={ref} className="relative py-10 mx-auto max-w-[1200px]">
       {/* Header for this section */}
+      <motion.nav 
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true}}
+      variants={fadeInVariants}
+      >
       <div className="top-0 flex items-center justify-center z-10">
         {/* New layout with icon, title, and subtitle */}
         {icon && title ? (
@@ -61,7 +75,7 @@ function SectionWithProgress({ header, icon, title, subtitle, children }: Sectio
             
             {/* Divider */}
             <div className="mt-4 flex">
-              <div className="w-full h-px bg-white/20" />
+              <div className="w-full h-px bg-[#fdd262]/70 shadow-md" />
             </div>
           </div>
         ) : (
@@ -82,7 +96,7 @@ function SectionWithProgress({ header, icon, title, subtitle, children }: Sectio
         )}
       </div>
       {/* Section content */}
-      <div className="lg:px-8">{children}</div>
+      <div className="lg:px-8">{children}</div></motion.nav>
     </section>
   );
 }
@@ -102,6 +116,15 @@ export default function Home(): JSX.Element {
   // and by 0.85 the opacity is 0.
   const navOpacity = useTransform(heroScroll, [0, 0.75, 0.85], [1, 0.8, 0]);
 
+        const fadeInVariants = {
+        hidden: { opacity: 0 },
+        visible: { 
+          opacity: 1, 
+          transition: { duration: 1.8, delay: 0.1 } 
+        },
+      };
+
+
   return (
     // Add top padding so fixed navbar does not overlap page content.
     // Uses CSS custom properties (--navbar-height-mobile, --navbar-height-lg) defined in index.css
@@ -114,16 +137,29 @@ export default function Home(): JSX.Element {
         <NavBar />
       </motion.div>
 
+    <motion.nav 
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true}}
+      variants={fadeInVariants}
+      >
       <div ref={heroRef}>
         <HeroSection />
-      </div>
+      </div></motion.nav>
 
       {/* About Section (no banner header) */}
+      <motion.nav 
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true}}
+      variants={fadeInVariants}
+      >
       <div className="w-full relative py-10 mx-auto max-w-[1200px] px-6">
         <AboutSection />
-      </div>
+      </div></motion.nav>
 
       {/* Other sections: headers with icons and subtitles */}
+      
       <SectionWithProgress 
         icon="/icons/terminal.svg"
         title="Projects"
@@ -132,19 +168,25 @@ export default function Home(): JSX.Element {
         <ProjectsSection/>
       </SectionWithProgress>
 
+                <motion.nav 
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true}}
+      variants={fadeInVariants}
+    >
       <SectionWithProgress 
         icon="/icons/posts.svg"
         title="Latest Posts"
         subtitle="My latest thoughts and writings."
       >
         <PostsSection />
-      </SectionWithProgress>
+      </SectionWithProgress></motion.nav>
 
       <SectionWithProgress
         header={<img src={contactHeaderImg} alt="Contact" className="h-16 mx-auto" />}
       >
         <p className="text-[rgb(87,111,114)]">
-          Get in touch: email@example.com
+          Get in touch: jwbmarten@gmail.com
         </p>
       </SectionWithProgress>
     </div>

@@ -1,4 +1,4 @@
-import { JSX } from "react";
+import { JSX, useEffect, useState } from "react";
 import {
   ResponsiveContainer,
   LineChart,
@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   Tooltip,
 } from "recharts";
+
 
 interface MetricChartProps {
   data: Array<{ [key: string]: any }>;
@@ -35,6 +36,17 @@ export default function MetricChart({
   label,
   icon,
 }: MetricChartProps): JSX.Element {
+
+  const [shouldAnimate, setShouldAnimate] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShouldAnimate(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="p-4 rounded-xl bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-md shadow-lg ring-1 ring-white/20 border border-white/10">
       {/* Header */}
@@ -65,7 +77,15 @@ export default function MetricChart({
                 tick={{ fontSize: 12, fill: "#9CA3AF" }}
                 tickFormatter={formatTimeLabel}
               />
-              <YAxis tick={{ fontSize: 12, fill: "#9CA3AF" }} />
+              <YAxis tick={{ 
+                fontSize: 12, 
+                fill: "#9CA3AF",
+                 }} 
+                   domain={[
+                    (min: number) => Math.max(0, Math.floor(min)),
+                    (max: number) => Math.ceil(max),
+                  ]}
+                 />
               <Tooltip
                 contentStyle={{
                   backgroundColor: "rgba(0,0,0,0.8)",
@@ -84,7 +104,10 @@ export default function MetricChart({
                 stroke={color}
                 strokeWidth={2} 
                 dot={false}
-                isAnimationActive={false}
+                isAnimationActive={shouldAnimate}
+                animationBegin={150}
+                animationDuration={900}
+                animationEasing="ease-out"
               />
             </LineChart>
           </ResponsiveContainer>

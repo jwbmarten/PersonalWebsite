@@ -76,18 +76,35 @@ export default function NavBar(): JSX.Element {
                 ease: [0, 0.71, 0.2, 1.01],
             }}>
 
-            <div className='flex h-12 lg:h-20 items-center justify-center py-4 gap-4 lg:gap-8'>
+            <div className='flex h-12 lg:h-15 items-center justify-center py-4 gap-4 lg:gap-8'>
                 {/* large screen links */}
-                <ul className="hidden lg:flex items-center gap-6 font-paragraph text-2xl text-skin-base">
+                <ul className="hidden lg:flex items-center gap-4 font-paragraph text-2xl text-skin-base">
                     <li className='px-1 lg:px-4'>
                         <NavText href='/' text='Home' isMain={true} />
                     </li>
                     <li className='px-1 lg:px-4'>
-                        <NavText href='/stats' text='Site Analytics' />
+                        <div className='flex flex-row items-center justify-center gap-2'>
+                            <img 
+                                src="/icons/Raspberry_Pi_Logo.svg"
+                                alt="RPi_Logo"
+                                className="w-6 h-6 flex-shrink-0"
+                            />
+                            <NavText href='/status' text='RPi Metrics' />
+                        </div>
+                        
                     </li>
                     <li className='px-1 lg:px-4'>
-                        <NavText href='/status' text='RPi Metrics' />
+                        <div className='flex flex-row items-center justify-center gap-2'>
+                            <img 
+                                src="/icons/trendUp.svg"
+                                alt="analytics_trend"
+                                className="w-6 h-6 flex-shrink-0"
+                            />
+                            <NavText href='/stats' text='Site Analytics' />
+                        </div>
+                        
                     </li>
+                    
                 </ul>
 
                 {/* small screen: socials then hamburger */}
@@ -131,14 +148,29 @@ export default function NavBar(): JSX.Element {
                             >
                                 <ul className="flex flex-col divide-y divide-white/5">
                                     <li>
-                                        <NavLink to='/' onClick={() => setOpen(false)} className='block px-5 py-5 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Home</NavLink>
+                                        <NavLink to='/' onClick={() => setOpen(false)} className='block px-5 py-5 hover:underline text-[#fdd262] text-center font-arvo text-xl'>Home</NavLink>
                                     </li>
                                     <li>
-                                        <NavLink to='/stats' onClick={() => setOpen(false)} className='block px-5 py-5 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>Site Analytics</NavLink>
+                                        <div className='flex flex-row items-center justify-center'>
+                                        <img 
+                                            src="/icons/Raspberry_Pi_Logo.svg"
+                                            alt="RPi_Logo"
+                                            className="w-6 h-6 flex-shrink-0"
+                                        />
+                                        <NavLink to='/status' onClick={() => setOpen(false)} className='block px-5 py-5 hover:underline text-white text-center font-arvo text-xl'>RPi Metrics</NavLink>
+                                        </div>
                                     </li>
                                     <li>
-                                        <NavLink to='/status' onClick={() => setOpen(false)} className='block px-5 py-5 hover:bg-white/10 text-[#fdd262] text-center font-arvo text-xl'>RPi Metrics</NavLink>
+                                        <div className='flex flex-row items-center justify-center'>
+                                        <img 
+                                            src="/icons/trendUp.svg"
+                                            alt="analytics_trend"
+                                            className="w-6 h-6 flex-shrink-0"
+                                        />
+                                        <NavLink to='/stats' onClick={() => setOpen(false)} className='block px-5 py-5 hover:underline text-white text-center font-arvo text-xl'>Site Analytics</NavLink>
+                                        </div>
                                     </li>
+                                    
                                 </ul>
                             </motion.div>
                         </div>,
